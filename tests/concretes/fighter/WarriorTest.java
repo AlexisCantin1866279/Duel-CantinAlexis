@@ -98,19 +98,19 @@ public class WarriorTest {
 	@Test (expected = WarriorIllegalSkillPoints.class)
 	public void WHEN_DexterityIsAboveStrength() {
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(ANY_NAME, ANY_STRENGTH, ANY_STRENGTH + 1, 0, 0);
+		IFighter warriorException = new Warrior(ANY_NAME, 30, 30, 20, 10);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
 	public void WHEN_IntelligenceIsAboveDexterity() {
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(ANY_NAME, ANY_DEXTERITY + 1, ANY_DEXTERITY, ANY_DEXTERITY + 1, 0);
+		IFighter warriorException = new Warrior(ANY_NAME, 30, 20, 31, 10);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
 	public void WHEN_ConcentrationIsAboveIntelligence() {
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(ANY_NAME, ANY_INTELLIGENCE, ANY_CONCENTRATION, ANY_CONCENTRATION, ANY_INTELLIGENCE + 1);
+		IFighter warriorException = new Warrior(ANY_NAME, 40, 30, 8, 21);
 	}
 
 }

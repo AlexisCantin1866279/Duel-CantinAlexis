@@ -11,10 +11,10 @@ import exceptions.fighter.WizardIllegalSkillPoints;
 public class WizardTest {
 
 	public static final String ANY_NAME = "Bob";
-	public static final int ANY_STRENGTH = 15;
-	public static final int ANY_DEXTERITY = 15;
-	public static final int ANY_INTELLIGENCE = 30;
-	public static final int ANY_CONCENTRATION = 30;
+	public static final int ANY_STRENGTH = 3;
+	public static final int ANY_DEXTERITY = 8;
+	public static final int ANY_INTELLIGENCE = 25;
+	public static final int ANY_CONCENTRATION = 25;
 	
 	private IFighter wizard;
 
@@ -33,25 +33,25 @@ public class WizardTest {
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_StrenthIsAboveIntelligence() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_INTELLIGENCE + 1, 0, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(ANY_NAME, ANY_INTELLIGENCE + 1, ANY_DEXTERITY, ANY_INTELLIGENCE, ANY_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_DexterityIsAboveIntelligence() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, 0, ANY_INTELLIGENCE + 1, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(ANY_NAME, ANY_STRENGTH, ANY_INTELLIGENCE + 1, ANY_INTELLIGENCE, ANY_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_StrenthIsAboveConcentration() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_CONCENTRATION + 1, 0, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(ANY_NAME, ANY_CONCENTRATION + 1, ANY_DEXTERITY, 41, ANY_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_DexterityIsAboveConcentration() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, 0, ANY_CONCENTRATION + 1, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(ANY_NAME, ANY_STRENGTH, ANY_CONCENTRATION + 1, 41, ANY_CONCENTRATION);
 	}
 
 }
