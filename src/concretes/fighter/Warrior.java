@@ -14,9 +14,17 @@ public class Warrior extends Fighter {
 	private void validateWarriorSkills(int strength, int dexterity, int intelligence, int concentration) {
 		int dexterityDifference = dexterity + WARRIOR_SKILLS_CAP;
 		int intelligenceDifference = intelligence + WARRIOR_SKILLS_CAP;
+		boolean exceptionMustBeThrown = false;
 
-		if (strength < dexterityDifference || dexterityDifference < intelligenceDifference
-				|| intelligenceDifference < concentration)
+		if (strength < dexterityDifference) {
+			exceptionMustBeThrown = true;
+		} else if (dexterityDifference < intelligenceDifference) {
+			exceptionMustBeThrown = true;
+		} else if (intelligenceDifference < concentration) {
+			exceptionMustBeThrown = true;
+		}
+
+		if (exceptionMustBeThrown)
 			throw new WarriorIllegalSkillPoints();
 	}
 
