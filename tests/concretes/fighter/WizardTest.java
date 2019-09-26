@@ -10,48 +10,50 @@ import exceptions.fighter.WizardIllegalSkillPoints;
 
 public class WizardTest {
 
-	public static final String ANY_NAME = "Bob";
-	public static final int ANY_STRENGTH = 3;
-	public static final int ANY_DEXTERITY = 8;
-	public static final int ANY_INTELLIGENCE = 25;
-	public static final int ANY_CONCENTRATION = 25;
+	public static final int WIZARD_STRENGTH = 3;
+	public static final int WIZARD_DEXTERITY = 8;
+	public static final int WIZARD_INTELLIGENCE = 25;
+	public static final int WIZARD_CONCENTRATION = 25;
 	
 	private IFighter wizard;
 
 	@Before
 	public void initializeWarrior() {
-		wizard = new Wizard(ANY_NAME, ANY_STRENGTH, ANY_DEXTERITY, ANY_INTELLIGENCE, ANY_CONCENTRATION);
-	}
-	
-	@Test
-	public void WHEN_FighterIsCreated_THEN_HisStrengthIsInitialize() {
-		int strength = wizard.getStrength();
-		
-		assertEquals(ANY_STRENGTH, strength);
+		wizard = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_StrenthIsAboveIntelligence() {
+		int illegalStrength = WIZARD_INTELLIGENCE + 1;
+		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_INTELLIGENCE + 1, ANY_DEXTERITY, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_DexterityIsAboveIntelligence() {
+		int illegalDexterity = WIZARD_INTELLIGENCE + 1;
+		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_STRENGTH, ANY_INTELLIGENCE + 1, ANY_INTELLIGENCE, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_StrenthIsAboveConcentration() {
+		int illegalStrength = WIZARD_CONCENTRATION + 1;
+		int adaptionintelligence = illegalStrength + Wizard.WIZARD_DELTA_SILLS;
+		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_CONCENTRATION + 1, ANY_DEXTERITY, 41, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, adaptionintelligence, WIZARD_CONCENTRATION);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
 	public void WHEN_DexterityIsAboveConcentration() {
+		int illegalDexterity = WIZARD_CONCENTRATION + 1;
+		int adaptionintelligence = illegalDexterity + Wizard.WIZARD_DELTA_SILLS;
+		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(ANY_NAME, ANY_STRENGTH, ANY_CONCENTRATION + 1, 41, ANY_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, adaptionintelligence, WIZARD_CONCENTRATION);
 	}
 
 }
