@@ -1,6 +1,6 @@
 package exceptions.fighter;
 
 @SuppressWarnings("serial")
-public class WarriorIllegalSkillPoints extends IllegalArgumentException{
+public class WarriorIllegalSkillPoints extends IllegalArgumentException {
 
 }
