@@ -1,6 +1,10 @@
 package concretes.weapon;
 
+import abstracts.fighter.IFighter;
+import abstracts.strategy.ICapacity;
+import abstracts.strategy.IFabricCapacity;
 import abstracts.weapon.IWeapon;
+import concretes.strategy.FabricCapacity;
 import exceptions.weapon.IllegalWeaponPower;
 
 public abstract class Weapon implements IWeapon {
@@ -23,11 +27,19 @@ public abstract class Weapon implements IWeapon {
 		if (power < MIN_POWER || power > MAX_POWER)
 			throw new IllegalWeaponPower();
 	}
-	
+
 	public int getPower() {
 		return this.power;
 	}
-	
-	
+
+	public String getName() {
+		return this.name;
+	}
+
+	public int attack(IFighter fighter) {
+		IFabricCapacity fabric = new FabricCapacity();
+		ICapacity capacity = fabric.create(this.type);
+		return capacity.getPowerCapacity(fighter, this);
+	}
 
 }

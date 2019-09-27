@@ -1,7 +1,7 @@
-package abstracts.weapon;
+package abstracts.strategy;
 
 import abstracts.weapon.IWeapon.weaponType;
 
-public interface IFrabricCapacity {
+public interface IFabricCapacity {
 	ICapacity create(weaponType type);
 }

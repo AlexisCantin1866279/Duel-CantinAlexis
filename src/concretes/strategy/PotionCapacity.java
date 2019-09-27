@@ -1,7 +1,7 @@
-package concretes.weapon;
+package concretes.strategy;
 
 import abstracts.fighter.IFighter;
-import abstracts.weapon.ICapacity;
+import abstracts.strategy.ICapacity;
 import abstracts.weapon.IWeapon;
 
 public class PotionCapacity implements ICapacity {

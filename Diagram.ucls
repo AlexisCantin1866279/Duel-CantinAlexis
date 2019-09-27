@@ -48,7 +48,7 @@
   </class>  
   <enumeration id="6" language="java" name="abstracts.weapon.IWeapon.weaponType" project="Duel-CantinAlexis" 
     file="/Duel-CantinAlexis/src/abstracts/weapon/IWeapon.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="797" y="53"/>    
+    <position height="-1" width="-1" x="793" y="42"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </interface>  
   <class id="8" language="java" name="concretes.weapon.Weapon" project="Duel-CantinAlexis" 
     file="/Duel-CantinAlexis/src/concretes/weapon/Weapon.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="629" y="224"/>    
+    <position height="-1" width="-1" x="601" y="216"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -118,54 +118,80 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <realization id="14">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <realization id="15">    
+  <interface id="14" language="java" name="abstracts.weapon.IFabricCapacity" project="Duel-CantinAlexis" 
+    file="/Duel-CantinAlexis/src/abstracts/weapon/IFabricCapacity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="864" y="321"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="concretes.weapon.FabricCapacity" project="Duel-CantinAlexis" 
+    file="/Duel-CantinAlexis/src/concretes/weapon/FabricCapacity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="859" y="450"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="16">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="13"/>  
   </realization>  
-  <realization id="16">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <realization id="17">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="19">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <realization id="20">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <nesting id="22">    
+  <nesting id="17">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </nesting>  
-  <association id="23">    
+  <realization id="18">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="19">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="22">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="24" name="type"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
+      <attribute id="23" name="type">        
+        <position height="0" width="0" x="-4" y="-11"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-4" y="-11"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <realization id="26">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </realization>  
+  <realization id="27">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </realization>  
+  <realization id="28">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <generalization id="29">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

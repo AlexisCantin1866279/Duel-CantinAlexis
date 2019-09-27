@@ -1,10 +1,10 @@
-package concretes.weapon;
+package concretes.strategy;
 
-import abstracts.weapon.ICapacity;
-import abstracts.weapon.IFrabricCapacity;
+import abstracts.strategy.ICapacity;
+import abstracts.strategy.IFabricCapacity;
 import abstracts.weapon.IWeapon.weaponType;
 
-public class FabricCapacity implements IFrabricCapacity {
+public class FabricCapacity implements IFabricCapacity {
 
 	@Override
 	public ICapacity create(weaponType type) {

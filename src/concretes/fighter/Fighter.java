@@ -4,17 +4,17 @@ import abstracts.fighter.IFighter;
 import exceptions.fighter.IllegalSkillPoints;
 
 public abstract class Fighter implements IFighter {
-	
+
 	public static final int MAX_SKILLS = 100;
 	public static final int BASE_HP = 200;
-	
+
 	private String name;
 	private int strength;
 	private int dexterity;
 	private int intelligence;
 	private int concentration;
 	private int lifePoint;
-	
+
 	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration) {
 		validateSkills(strength, dexterity, intelligence, concentration);
 		this.name = name;
@@ -24,7 +24,7 @@ public abstract class Fighter implements IFighter {
 		this.concentration = concentration;
 		this.lifePoint = BASE_HP - (strength + dexterity + intelligence + concentration);
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
@@ -68,9 +68,10 @@ public abstract class Fighter implements IFighter {
 	public void setLifePoint(int lifePoint) {
 		this.lifePoint = lifePoint;
 	}
-	
+
 	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {
-		if (strength + dexterity + intelligence + concentration > MAX_SKILLS) throw new IllegalSkillPoints();
+		if (strength + dexterity + intelligence + concentration > MAX_SKILLS)
+			throw new IllegalSkillPoints();
 	}
 
 }
