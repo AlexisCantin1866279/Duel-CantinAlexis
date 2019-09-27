@@ -12,13 +12,11 @@ public abstract class Weapon implements IWeapon {
 	public static final int MIN_POWER = 20;
 	public static final int MAX_POWER = 100;
 
-	private String name;
 	private int power;
 	private weaponType type;
 
-	public Weapon(String name, int power, weaponType type) {
+	public Weapon(int power, weaponType type) {
 		validatePower(power);
-		this.name = name;
 		this.power = power;
 		this.type = type;
 	}
@@ -30,10 +28,6 @@ public abstract class Weapon implements IWeapon {
 
 	public int getPower() {
 		return this.power;
-	}
-
-	public String getName() {
-		return this.name;
 	}
 
 	public int attack(IFighter fighter) {
