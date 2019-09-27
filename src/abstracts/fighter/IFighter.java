@@ -22,4 +22,6 @@ public interface IFighter {
 	int getLifePoint();
 
 	void setLifePoint(int lifePoint);
+	
+	int attack();
 }

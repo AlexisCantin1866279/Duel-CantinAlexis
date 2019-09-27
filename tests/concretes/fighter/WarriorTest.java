@@ -6,8 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.IllegalSkillPoints;
 import exceptions.fighter.WarriorIllegalSkillPoints;
+import mocks.WeaponDummy;
 
 public class WarriorTest {
 
@@ -17,10 +19,12 @@ public class WarriorTest {
 	public static final int WARRIOR_CONCENTRATION = 10;
 	
 	private IFighter warrior;
+	private IWeapon weaponDummy;
 
 	@Before
 	public void initializeWarrior() {
-		 warrior = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION);
+		weaponDummy = new WeaponDummy();
+		 warrior = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
@@ -28,7 +32,7 @@ public class WarriorTest {
 		int illegalStrength = WARRIOR_STRENGTH - 1; //39
 		
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, illegalStrength, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION);
+		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, illegalStrength, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
@@ -38,7 +42,7 @@ public class WarriorTest {
 		int illegalIntelligence = WARRIOR_INTELLIGENCE + Warrior.WARRIOR_DELTA_SKILLS + 1; //31
 		
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, adaptationStrength, adaptationDexterity, illegalIntelligence, WARRIOR_CONCENTRATION);
+		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, adaptationStrength, adaptationDexterity, illegalIntelligence, WARRIOR_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
@@ -47,7 +51,7 @@ public class WarriorTest {
 		int illegalConcentration = WARRIOR_CONCENTRATION + Warrior.WARRIOR_DELTA_SKILLS + 1; //21
 		
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, adaptationIntelligence, illegalConcentration);
+		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, adaptationIntelligence, illegalConcentration, weaponDummy);
 	}
 
 }

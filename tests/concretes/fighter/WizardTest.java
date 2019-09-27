@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.WizardIllegalSkillPoints;
+import mocks.WeaponDummy;
 
 public class WizardTest {
 
@@ -16,10 +18,12 @@ public class WizardTest {
 	public static final int WIZARD_CONCENTRATION = 25;
 	
 	private IFighter wizard;
+	private IWeapon weaponDummy;
 
 	@Before
 	public void initializeWarrior() {
-		wizard = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
+		weaponDummy = new WeaponDummy();
+		wizard = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
@@ -27,7 +31,7 @@ public class WizardTest {
 		int illegalStrength = WIZARD_INTELLIGENCE + 1;
 		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
@@ -35,7 +39,7 @@ public class WizardTest {
 		int illegalDexterity = WIZARD_INTELLIGENCE + 1;
 		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
@@ -44,7 +48,7 @@ public class WizardTest {
 		int adaptionintelligence = illegalStrength + Wizard.WIZARD_DELTA_SILLS;
 		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, adaptionintelligence, WIZARD_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, illegalStrength, WIZARD_DEXTERITY, adaptionintelligence, WIZARD_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
@@ -53,7 +57,7 @@ public class WizardTest {
 		int adaptionintelligence = illegalDexterity + Wizard.WIZARD_DELTA_SILLS;
 		
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, adaptionintelligence, WIZARD_CONCENTRATION);
+		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, adaptionintelligence, WIZARD_CONCENTRATION, weaponDummy);
 	}
 
 }

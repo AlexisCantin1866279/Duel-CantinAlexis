@@ -1,13 +1,14 @@
 package concretes.fighter;
 
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.AthleteIllegalSkillPoints;
 
 public class Athlete extends Fighter {
 
 	public static final int ATHLETE_DELTA_SKILLS = 20;
 
-	public Athlete(String name, int strength, int dexterity, int intelligence, int concentration) {
-		super(name, strength, dexterity, intelligence, concentration);
+	public Athlete(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
+		super(name, strength, dexterity, intelligence, concentration, weapon);
 		validateAthleteSkills(strength, dexterity, intelligence, concentration);
 	}
 

@@ -1,6 +1,7 @@
 package concretes.fighter;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.IllegalSkillPoints;
 
 public abstract class Fighter implements IFighter {
@@ -14,14 +15,16 @@ public abstract class Fighter implements IFighter {
 	private int intelligence;
 	private int concentration;
 	private int lifePoint;
+	private IWeapon weapon;
 
-	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration) {
+	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
 		validateSkills(strength, dexterity, intelligence, concentration);
 		this.name = name;
 		this.strength = strength;
 		this.dexterity = dexterity;
 		this.intelligence = intelligence;
 		this.concentration = concentration;
+		this.weapon = weapon; // mettre en list pour en posseder plus qu'une
 		this.lifePoint = BASE_HP - (strength + dexterity + intelligence + concentration);
 	}
 
@@ -67,6 +70,10 @@ public abstract class Fighter implements IFighter {
 
 	public void setLifePoint(int lifePoint) {
 		this.lifePoint = lifePoint;
+	}
+	
+	public int attack() {
+		return this.weapon.attack(this);
 	}
 
 	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {

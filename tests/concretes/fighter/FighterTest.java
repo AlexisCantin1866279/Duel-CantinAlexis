@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.IllegalSkillPoints;
+import mocks.WeaponDummy;
 
 public class FighterTest {
 	
@@ -15,12 +17,14 @@ public class FighterTest {
 	private IFighter warrior;
 	private IFighter athlete;
 	private IFighter wizard;
+	private IWeapon weaponDummy;
 
 	@Before
 	public void initilizeFighter() {
-		warrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY, WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION);
-		athlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY, AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION);
-		wizard = new Wizard(ANY_NAME, WizardTest.WIZARD_STRENGTH, WizardTest.WIZARD_DEXTERITY, WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION);
+		weaponDummy = new WeaponDummy();
+		warrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY, WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, weaponDummy);
+		athlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY, AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION, weaponDummy);
+		wizard = new Wizard(ANY_NAME, WizardTest.WIZARD_STRENGTH, WizardTest.WIZARD_DEXTERITY, WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test
@@ -69,7 +73,7 @@ public class FighterTest {
 	@Test (expected = IllegalSkillPoints.class)
 	public void WHEN_StrengthIsAboveMax() {
 		@SuppressWarnings("unused")
-		IFighter warriorException = new Warrior(ANY_NAME, Fighter.MAX_SKILLS + 1, WarriorTest.WARRIOR_DEXTERITY, WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION);
+		IFighter warriorException = new Warrior(ANY_NAME, Fighter.MAX_SKILLS + 1, WarriorTest.WARRIOR_DEXTERITY, WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, weaponDummy);
 	}
 
 }

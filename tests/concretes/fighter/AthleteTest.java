@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IWeapon;
 import exceptions.fighter.AthleteIllegalSkillPoints;
+import mocks.WeaponDummy;
 
 public class AthleteTest {
 	
@@ -16,34 +18,36 @@ public class AthleteTest {
 	public static final int ATHLETE_CONCENTRATION = 20;
 	
 	private IFighter athlete;
+	private IWeapon weaponDummy;
 
 	@Before
 	public void initializeWarrior() {
-		athlete = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION);
+		weaponDummy = new WeaponDummy();
+		athlete = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = AthleteIllegalSkillPoints.class)
 	public void WHEN_StrenthIsUnderAthleteSkillsCap() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION);
+		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = AthleteIllegalSkillPoints.class)
 	public void WHEN_DexterityIsUnderAthleteSkillsCap() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION);
+		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_INTELLIGENCE, ATHLETE_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = AthleteIllegalSkillPoints.class)
 	public void WHEN_IntelligenceIsUnderAthleteSkillsCap() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_CONCENTRATION);
+		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, Athlete.ATHLETE_DELTA_SKILLS -1, ATHLETE_CONCENTRATION, weaponDummy);
 	}
 	
 	@Test (expected = AthleteIllegalSkillPoints.class)
 	public void WHEN_ConcentrationIsUnderAthleteSkillsCap() {
 		@SuppressWarnings("unused")
-		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, Athlete.ATHLETE_DELTA_SKILLS -1);
+		IFighter athleteException = new Athlete(FighterTest.ANY_NAME, ATHLETE_STRENGTH, ATHLETE_DEXTERITY, ATHLETE_INTELLIGENCE, Athlete.ATHLETE_DELTA_SKILLS -1, weaponDummy);
 	}
 
 }

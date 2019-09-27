@@ -74,4 +74,10 @@ public class FighterStub implements IFighter {
 
 	}
 
+	@Override
+	public int attack() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
