@@ -4,6 +4,9 @@ public interface IWeapon {
 	enum weaponType {
 		PHYSICAL,
 		MAGIC,
-		HEAL
+		HEAL,
+		POTION
 	}
+	
+	int getPower();
 }
