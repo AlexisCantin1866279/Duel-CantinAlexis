@@ -32,7 +32,7 @@ public abstract class Weapon implements IWeapon {
 
 	public int attack(IFighter fighter) {
 		IFabricCapacity fabric = new FabricCapacity();
-		ICapacity capacity = fabric.create(this.type);
+		ICapacity capacity = fabric.create(this.type); //mettre les deux variables a l'exterieur??
 		return capacity.getPowerCapacity(fighter, this);
 	}
 

@@ -1,5 +1,7 @@
 package abstracts.weapon;
 
+import abstracts.fighter.IFighter;
+
 public interface IWeapon {
 
 	enum weaponType {
@@ -7,5 +9,7 @@ public interface IWeapon {
 	}
 
 	int getPower();
+	
+	int attack(IFighter fighter);
 
 }
