@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
-import exceptions.fighter.IllegalSkillPoints;
 import exceptions.fighter.WarriorIllegalSkillPoints;
+import mocks.SwordStub;
 import mocks.WeaponDummy;
 
 public class WarriorTest {
@@ -19,12 +19,14 @@ public class WarriorTest {
 	public static final int WARRIOR_CONCENTRATION = 10;
 	
 	private IFighter warrior;
+	private IWeapon swordStub;
 	private IWeapon weaponDummy;
 
 	@Before
 	public void initializeWarrior() {
 		weaponDummy = new WeaponDummy();
-		 warrior = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION, weaponDummy);
+		swordStub = new SwordStub();
+		 warrior = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, WARRIOR_INTELLIGENCE, WARRIOR_CONCENTRATION, swordStub);
 	}
 	
 	@Test (expected = WarriorIllegalSkillPoints.class)
@@ -52,6 +54,14 @@ public class WarriorTest {
 		
 		@SuppressWarnings("unused")
 		IFighter warriorException = new Warrior(FighterTest.ANY_NAME, WARRIOR_STRENGTH, WARRIOR_DEXTERITY, adaptationIntelligence, illegalConcentration, weaponDummy);
+	}
+	
+	@Test
+	public void GIVEN_warrior_sword_WHEN_warriorAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
+
+		int attackValue = warrior.attack();
+
+		assertEquals(WARRIOR_STRENGTH, attackValue);
 	}
 
 }

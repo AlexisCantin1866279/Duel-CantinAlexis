@@ -8,6 +8,8 @@ import org.junit.Test;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.WizardIllegalSkillPoints;
+import mocks.FireBallStub;
+import mocks.HealingSpellStub;
 import mocks.WeaponDummy;
 
 public class WizardTest {
@@ -17,13 +19,21 @@ public class WizardTest {
 	public static final int WIZARD_INTELLIGENCE = 25;
 	public static final int WIZARD_CONCENTRATION = 25;
 	
-	private IFighter wizard;
+	private IFighter wizardOffensive;
+	private IFighter wizardHealing;
+	
 	private IWeapon weaponDummy;
+	private IWeapon fireBallStub;
+	private IWeapon healingSpellStub;
 
 	@Before
 	public void initializeWarrior() {
 		weaponDummy = new WeaponDummy();
-		wizard = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, weaponDummy);
+		fireBallStub = new FireBallStub();
+		healingSpellStub = new HealingSpellStub();
+		
+		wizardOffensive = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, fireBallStub);
+		wizardHealing = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, WIZARD_DEXTERITY, WIZARD_INTELLIGENCE, WIZARD_CONCENTRATION, healingSpellStub);
 	}
 	
 	@Test (expected = WizardIllegalSkillPoints.class)
@@ -58,6 +68,22 @@ public class WizardTest {
 		
 		@SuppressWarnings("unused")
 		IFighter athleteException = new Wizard(FighterTest.ANY_NAME, WIZARD_STRENGTH, illegalDexterity, adaptionintelligence, WIZARD_CONCENTRATION, weaponDummy);
+	}
+	
+	@Test
+	public void GIVEN_wizard_fireBall_WHEN_wizardAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
+
+		int attackValue = wizardOffensive.attack();
+
+		assertEquals(WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS, attackValue);
+	}
+	
+	@Test
+	public void GIVEN_wizard_healingSpell_WHEN_wizardAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
+
+		int attackValue = wizardHealing.attack();
+
+		assertEquals(WIZARD_INTELLIGENCE, attackValue);
 	}
 
 }
