@@ -5,6 +5,7 @@ import abstracts.strategy.ICapacity;
 import abstracts.strategy.IFabricCapacity;
 import abstracts.weapon.IWeapon;
 import concretes.strategy.FabricCapacity;
+import exceptions.weapon.IllegalAttack;
 import exceptions.weapon.IllegalWeaponPower;
 
 public abstract class Weapon implements IWeapon {
@@ -13,12 +14,14 @@ public abstract class Weapon implements IWeapon {
 	public static final int MAX_POWER = 100;
 
 	private int power;
-	private weaponType type;
+	private attackType attackType;
+	private weaponType weapontype;
 
-	public Weapon(int power, weaponType type) {
+	public Weapon(int power, weaponType weapontype, attackType attackType) {
 		validatePower(power);
 		this.power = power;
-		this.type = type;
+		this.weapontype = weapontype;
+		this.attackType = attackType;
 	}
 
 	private void validatePower(int power) {
@@ -31,9 +34,14 @@ public abstract class Weapon implements IWeapon {
 	}
 
 	public int attack(IFighter fighter) {
+		validateAttack();
 		IFabricCapacity fabric = new FabricCapacity();
-		ICapacity capacity = fabric.create(this.type); //mettre les deux variables a l'exterieur??
+		ICapacity capacity = fabric.create(this.attackType); //mettre les deux variables a l'exterieur??
 		return capacity.getPowerCapacity(fighter, this);
+	}
+	
+	private void validateAttack() {
+		if (this.weapontype == weaponType.HEAL) throw new IllegalAttack();
 	}
 
 }

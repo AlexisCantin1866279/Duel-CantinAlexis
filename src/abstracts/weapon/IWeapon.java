@@ -4,8 +4,12 @@ import abstracts.fighter.IFighter;
 
 public interface IWeapon {
 
-	enum weaponType {
+	enum attackType {
 		PHYSICAL, MAGIC, HEAL, POTION
+	}
+	
+	enum weaponType {
+		ATTACK, PARADE, HEAL
 	}
 
 	int getPower();

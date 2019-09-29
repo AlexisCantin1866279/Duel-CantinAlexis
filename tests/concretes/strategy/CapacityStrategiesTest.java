@@ -9,7 +9,7 @@ import abstracts.fighter.IFighter;
 import abstracts.strategy.ICapacity;
 import abstracts.strategy.IFabricCapacity;
 import abstracts.weapon.IWeapon;
-import abstracts.weapon.IWeapon.weaponType;
+import abstracts.weapon.IWeapon.attackType;
 import mocks.FabricCapacityMock;
 import mocks.FighterStub;
 import mocks.HealCapacitySpy;
@@ -80,7 +80,7 @@ public class CapacityStrategiesTest {
 
 	@Test
 	public void WHEN_TypeIsPhysical_THEN_TheGoodStrategyIsReturned() {
-		ICapacity capacity = fabricCapacityMock.create(weaponType.PHYSICAL);
+		ICapacity capacity = fabricCapacityMock.create(attackType.PHYSICAL);
 		PhysicalCapacitySpy physicalCapacitySpy = (PhysicalCapacitySpy) capacity;
 
 		assertEquals(true, physicalCapacitySpy.hasBeenCall);
@@ -89,7 +89,7 @@ public class CapacityStrategiesTest {
 
 	@Test
 	public void WHEN_TypeIsMagic_THEN_TheGoodStrategyIsReturned() {
-		ICapacity capacity = fabricCapacityMock.create(weaponType.MAGIC);
+		ICapacity capacity = fabricCapacityMock.create(attackType.MAGIC);
 		MagicCapacitySpy magicCapacitySpy = (MagicCapacitySpy) capacity;
 
 		assertEquals(true, magicCapacitySpy.hasBeenCall);
@@ -98,7 +98,7 @@ public class CapacityStrategiesTest {
 
 	@Test
 	public void WHEN_TypeIsHeal_THEN_TheGoodStrategyIsReturned() {
-		ICapacity capacity = fabricCapacityMock.create(weaponType.HEAL);
+		ICapacity capacity = fabricCapacityMock.create(attackType.HEAL);
 		HealCapacitySpy healCapacitySpy = (HealCapacitySpy) capacity;
 
 		assertEquals(true, healCapacitySpy.hasBeenCall);
@@ -107,7 +107,7 @@ public class CapacityStrategiesTest {
 
 	@Test
 	public void WHEN_TypeIsPotion_THEN_TheGoodStrategyIsReturned() {
-		ICapacity capacity = fabricCapacityMock.create(weaponType.POTION);
+		ICapacity capacity = fabricCapacityMock.create(attackType.POTION);
 		PotionCapacitySpy potionCapacitySpy = (PotionCapacitySpy) capacity;
 
 		assertEquals(true, potionCapacitySpy.hasBeenCall);

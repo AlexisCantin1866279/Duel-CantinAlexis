@@ -2,12 +2,12 @@ package mocks;
 
 import abstracts.strategy.ICapacity;
 import abstracts.strategy.IFabricCapacity;
-import abstracts.weapon.IWeapon.weaponType;
+import abstracts.weapon.IWeapon.attackType;
 
 public class FabricCapacityMock implements IFabricCapacity {
 
 	@Override
-	public ICapacity create(weaponType type) {
+	public ICapacity create(attackType type) {
 
 		ICapacity capacity = null;
 
