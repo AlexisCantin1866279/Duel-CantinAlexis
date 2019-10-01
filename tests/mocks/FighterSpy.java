@@ -1,18 +1,14 @@
 package mocks;
 
 import abstracts.fighter.IFighter;
+import abstracts.infirmary.IInfirmary;
+import abstracts.weapon.IHealing;
+import abstracts.weapon.IWeapon;
+import concretes.infirmary.Infirmary;
 
-public class FighterStub implements IFighter {
-	
-	public static final int HP_TO_HEAL = 10;
-	public static final int BASE_HP = 100;
+public class FighterSpy implements IFighter {
 
-	public int dexterity = 10;
-	public int strength = 20;
-	public int intelligence = 30;
-	public int hp = BASE_HP;
-	public boolean destroy = false;
-
+	public boolean destroyWeaponHasBeenCalled = false;
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -22,37 +18,37 @@ public class FighterStub implements IFighter {
 	@Override
 	public int getStrength() {
 		// TODO Auto-generated method stub
-		return strength;
+		return 0;
 	}
 
 	@Override
 	public void setStrength(int strength) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getDexterity() {
 		// TODO Auto-generated method stub
-		return dexterity;
+		return 0;
 	}
 
 	@Override
 	public void setDexterity(int dexterity) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getIntelligence() {
 		// TODO Auto-generated method stub
-		return intelligence;
+		return 0;
 	}
 
 	@Override
 	public void setIntelligence(int intelligence) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -64,40 +60,44 @@ public class FighterStub implements IFighter {
 	@Override
 	public void setConcentration(int concentration) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public int getLifePoint() {
 		// TODO Auto-generated method stub
-		return this.hp;
-	}
-
-	@Override
-	public void setLifePoint(int lifePoint) {
-		this.hp = lifePoint;
-	}
-
-	@Override
-	public int getPower() {
-		// TODO Auto-generated method stub
-		return HP_TO_HEAL;
+		return 0;
 	}
 
 	@Override
 	public int getInitialLifePoint() {
 		// TODO Auto-generated method stub
-		return BASE_HP;
+		return 0;
 	}
 
 	@Override
-	public void destroyWeapon() {
-		destroy = true;
+	public void setLifePoint(int lifePoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPower() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public void nurse() {
-		// TODO Auto-generated method stub
+		IInfirmary infirmary = new Infirmary();
+		IWeapon healingSpellStub = new HealingSpellStub();
+		infirmary.nurse(this, (IHealing) healingSpellStub);
+		
+	}
+
+	@Override
+	public void destroyWeapon() {
+		destroyWeaponHasBeenCalled = true;
 		
 	}
 

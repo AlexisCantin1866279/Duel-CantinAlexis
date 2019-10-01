@@ -8,7 +8,9 @@ import org.junit.Test;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.IllegalSkillPoints;
+import mocks.FighterSpy;
 import mocks.FireBallStub;
+import mocks.HealingSpellStub;
 import mocks.WeaponDummy;
 
 public class FighterTest {
@@ -19,14 +21,21 @@ public class FighterTest {
 	private IFighter athlete;
 	private IFighter wizard;
 	private IFighter magicWarrior;
+	private IFighter healingWizard;
+	
+	private FighterSpy fighterSpy;
 
 	private IWeapon weaponDummy;
 	private IWeapon fireBallStub;
+	private IWeapon healingSpellStub;
 
 	@Before
 	public void initilizeFighter() {
 		weaponDummy = new WeaponDummy();
 		fireBallStub = new FireBallStub();
+		healingSpellStub = new HealingSpellStub();
+		fighterSpy = new FighterSpy();
+		
 		warrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY,
 				WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, weaponDummy);
 		athlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY,
@@ -35,6 +44,8 @@ public class FighterTest {
 				WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, weaponDummy);
 		magicWarrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY,
 				WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, fireBallStub);
+		healingWizard = new Wizard(ANY_NAME, WizardTest.WIZARD_STRENGTH, WizardTest.WIZARD_DEXTERITY,
+				WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, healingSpellStub);
 	}
 
 	@Test
@@ -113,6 +124,25 @@ public class FighterTest {
 		int attackValue = magicWarrior.getPower();
 
 		assertEquals(WizardTest.WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS, attackValue);
+	}
+	
+	@Test
+	public void WHEN_FighterHaveHealingCapacity_THEN_HeCanGoToTheInfirmary() {
+		
+		int life = healingWizard.getInitialLifePoint() / 2;
+		healingWizard.setLifePoint(life);
+		healingWizard.nurse();
+		
+		final int EXPECTED = life + WizardTest.WIZARD_INTELLIGENCE;
+		assertEquals(EXPECTED, healingWizard.getLifePoint());
+	}
+	
+	@Test
+	public void WHEN_FighterHaveBeenToTheInfirmary_THEN_HisHealingCapacityIsDetroy() {
+		
+		fighterSpy.nurse();
+		
+		assertEquals(true, fighterSpy.destroyWeaponHasBeenCalled);
 	}
 
 }

@@ -28,5 +28,7 @@ public interface IFighter {
 
 	int getPower();
 
+	void nurse();
+
 	void destroyWeapon();
 }

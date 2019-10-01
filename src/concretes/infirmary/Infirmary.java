@@ -2,14 +2,14 @@ package concretes.infirmary;
 
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
+import abstracts.weapon.IHealing;
 
 public final class Infirmary implements IInfirmary {
 
-	public void nurse(IFighter fighter) {
-		/*if (fighter.getWeaponType() != weaponType.HEAL)
-			throw new HealTypeException();*/
+	@Override
+	public void nurse(IFighter fighter, IHealing capacity) {
 
-		int healValue = fighter.getPower(); // changer le nom ?
+		int healValue = fighter.getPower();
 
 		if (healValue + fighter.getLifePoint() <= fighter.getInitialLifePoint()) {
 			fighter.setLifePoint(healValue + fighter.getLifePoint());
