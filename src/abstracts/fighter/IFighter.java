@@ -31,4 +31,6 @@ public interface IFighter {
 	int attack();
 
 	weaponType getWeaponType();
+
+	void destroyWeapon();
 }

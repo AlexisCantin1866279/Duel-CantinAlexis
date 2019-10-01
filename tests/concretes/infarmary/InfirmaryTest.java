@@ -43,5 +43,12 @@ public class InfirmaryTest {
 		
 		assertEquals(FighterStub.BASE_HP - 1, fighterToHeal.getLifePoint());
 	}
+	
+	@Test
+	public void WHEN_FighterGoToInfirmary_THEN_HisCapacityIsDetroy() {
+		infirmary.nurse(fighterToHeal);
+		
+		assertEquals(true, fighterToHeal.destroy);
+	}
 
 }

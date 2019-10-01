@@ -18,5 +18,7 @@ public final class Infirmary implements IInfirmary {
 		} else {
 			fighter.setLifePoint(fighter.getInitialLifePoint());
 		}
+		
+		fighter.destroyWeapon();
 	}
 }

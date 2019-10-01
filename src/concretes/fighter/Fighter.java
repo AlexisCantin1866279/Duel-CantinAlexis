@@ -89,6 +89,10 @@ public abstract class Fighter implements IFighter {
 		return this.weapon.getWeaponType();
 	}
 	
+	public void destroyWeapon() {
+		this.weapon = null;
+	}
+	
 	public void nurse() {
 		if (this.weapon.getWeaponType() != weaponType.HEAL) throw new HealTypeException();
 	}

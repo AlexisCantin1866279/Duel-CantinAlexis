@@ -13,6 +13,7 @@ public class FighterStub implements IFighter {
 	public int intelligence = 30;
 	public int hp = BASE_HP;
 	public weaponType type = weaponType.HEAL;
+	public boolean destroy = false;
 
 	@Override
 	public String getName() {
@@ -95,6 +96,11 @@ public class FighterStub implements IFighter {
 	public int getInitialLifePoint() {
 		// TODO Auto-generated method stub
 		return BASE_HP;
+	}
+
+	@Override
+	public void destroyWeapon() {
+		destroy = true;
 	}
 
 }
