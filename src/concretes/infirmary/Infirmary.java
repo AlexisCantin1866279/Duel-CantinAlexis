@@ -2,7 +2,6 @@ package concretes.infirmary;
 
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
-import exceptions.infirmary.HealTypeException;
 
 public final class Infirmary implements IInfirmary {
 
