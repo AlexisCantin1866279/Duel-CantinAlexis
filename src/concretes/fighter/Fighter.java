@@ -2,9 +2,7 @@ package concretes.fighter;
 
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
-import abstracts.weapon.IWeapon.weaponType;
 import exceptions.fighter.IllegalSkillPoints;
-import exceptions.infirmary.HealTypeException;
 
 public abstract class Fighter implements IFighter {
 
@@ -85,16 +83,11 @@ public abstract class Fighter implements IFighter {
 		return this.weapon.getCapacityPower(this);
 	}
 	
-	public weaponType getWeaponType() {
-		return this.weapon.getWeaponType();
-	}
-	
 	public void destroyWeapon() {
 		this.weapon = null;
 	}
 	
 	public void nurse() {
-		if (this.weapon.getWeaponType() != weaponType.HEAL) throw new HealTypeException();
 	}
 
 	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {

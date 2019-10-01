@@ -1,8 +1,11 @@
 package concretes.weapon;
 
-public class Sword extends Weapon {
+import abstracts.weapon.IAttack;
+import concretes.strategy.PhysicalCapacity;
 
-	public Sword(int power, weaponType weapontype, attackType attackType) {
-		super(power, weapontype, attackType);
+public class Sword extends PhysicalCapacity implements IAttack {
+
+	public Sword(int power) {
+		super(power);
 	}
 }

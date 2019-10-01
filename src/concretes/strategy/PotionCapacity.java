@@ -1,14 +1,17 @@
 package concretes.strategy;
 
 import abstracts.fighter.IFighter;
-import abstracts.strategy.ICapacity;
-import abstracts.weapon.IWeapon;
+import concretes.weapon.Weapon;
 
-public class PotionCapacity implements ICapacity {
+public abstract class PotionCapacity extends Weapon {
 
+	public PotionCapacity(int power) {
+		super(power);
+	}
+	
 	@Override
-	public int getPowerCapacity(IFighter fighter, IWeapon weapon) {
-		return fighter.getDexterity() * weapon.getPower() / 100;
+	public int getCapacityPower(IFighter fighter) {
+		return fighter.getDexterity() * this.getPower() / 100;
 	}
 
 }

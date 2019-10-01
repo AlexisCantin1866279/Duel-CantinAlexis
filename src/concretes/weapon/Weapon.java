@@ -1,10 +1,6 @@
 package concretes.weapon;
 
-import abstracts.fighter.IFighter;
-import abstracts.strategy.ICapacity;
-import abstracts.strategy.IFabricCapacity;
 import abstracts.weapon.IWeapon;
-import concretes.strategy.FabricCapacity;
 import exceptions.weapon.IllegalWeaponPower;
 
 public abstract class Weapon implements IWeapon {
@@ -12,15 +8,11 @@ public abstract class Weapon implements IWeapon {
 	public static final int MIN_POWER = 20;
 	public static final int MAX_POWER = 100;
 
-	private int power;
-	private attackType attackType;
-	private weaponType weapontype;
+	protected int power;
 
-	public Weapon(int power, weaponType weapontype, attackType attackType) {
+	public Weapon(int power) {
 		validatePower(power);
 		this.power = power;
-		this.weapontype = weapontype;
-		this.attackType = attackType;
 	}
 
 	private void validatePower(int power) {
@@ -31,20 +23,4 @@ public abstract class Weapon implements IWeapon {
 	public int getPower() {
 		return this.power;
 	}
-	
-	public weaponType getWeaponType() {
-		return this.weapontype;
-	}
-
-	public int getCapacityPower(IFighter fighter) {
-		//validateAttack();
-		IFabricCapacity fabric = new FabricCapacity();
-		ICapacity capacity = fabric.create(this.attackType); //mettre les deux variables a l'exterieur??
-		return capacity.getPowerCapacity(fighter, this);
-	}
-	
-//	private void validateAttack() {
-//		if (this.weapontype == weaponType.HEAL) throw new IllegalAttack();
-//	}
-
 }

@@ -7,8 +7,6 @@ import org.junit.Test;
 
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
-import abstracts.weapon.IWeapon.weaponType;
-import abstracts.weapon.IWeapon.attackType;
 import concretes.strategy.MagicCapacity;
 import exceptions.weapon.IllegalWeaponPower;
 import mocks.FighterStub;
@@ -27,11 +25,11 @@ public class WeaponTest {
 	
 	@Before
 	public void initialiseWeapon() {
-		sword = new Sword(ANY_POWER, weaponType.ATTACK, attackType.PHYSICAL);
-		shield = new Shield(ANY_POWER, weaponType.PARADE, attackType.PHYSICAL);
-		fireBall = new FireBall(ANY_POWER, weaponType.ATTACK, attackType.MAGIC);
-		healingSpell = new HealingSpell(ANY_POWER, weaponType.HEAL, attackType.HEAL);
-		healingPotion = new HealingPotion(ANY_POWER, weaponType.HEAL, attackType.POTION);
+		sword = new Sword(ANY_POWER);
+		shield = new Shield(ANY_POWER);
+		fireBall = new FireBall(ANY_POWER);
+		healingSpell = new HealingSpell(ANY_POWER);
+		healingPotion = new HealingPotion(ANY_POWER);
 		
 		fighterStub = new FighterStub();
 	}
@@ -43,25 +41,18 @@ public class WeaponTest {
 		assertEquals(ANY_POWER, power);
 	}
 	
-	@Test
-	public void WHEN_WeaponTypeIsAskedOnWeapon_THEN_TheWeaponTypeIsReturn() {
-		weaponType type = sword.getWeaponType();
-		
-		assertEquals(weaponType.ATTACK, type);
-	}
-	
 	@Test (expected = IllegalWeaponPower.class)
 	public void WHEN_TooLowPowerIsSet() {
 		
 		@SuppressWarnings("unused")
-		IWeapon illegalSword = new Sword(Weapon.MIN_POWER - 1, weaponType.ATTACK, attackType.PHYSICAL);
+		IWeapon illegalSword = new Sword(Weapon.MIN_POWER - 1);
 	}
 	
 	@Test (expected = IllegalWeaponPower.class)
 	public void WHEN_TooHighPowerIsSet() {
 		
 		@SuppressWarnings("unused")
-		IWeapon illegalSword = new Sword(Weapon.MAX_POWER + 1, weaponType.ATTACK, attackType.PHYSICAL);
+		IWeapon illegalSword = new Sword(Weapon.MAX_POWER + 1);
 	}
 	
 	@Test

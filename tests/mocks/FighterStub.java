@@ -1,7 +1,6 @@
 package mocks;
 
 import abstracts.fighter.IFighter;
-import abstracts.weapon.IWeapon.weaponType;
 
 public class FighterStub implements IFighter {
 	
@@ -12,7 +11,6 @@ public class FighterStub implements IFighter {
 	public int strength = 20;
 	public int intelligence = 30;
 	public int hp = BASE_HP;
-	public weaponType type = weaponType.HEAL;
 	public boolean destroy = false;
 
 	@Override
@@ -84,12 +82,6 @@ public class FighterStub implements IFighter {
 	public int getPower() {
 		// TODO Auto-generated method stub
 		return HP_TO_HEAL;
-	}
-
-	@Override
-	public weaponType getWeaponType() {
-		// TODO Auto-generated method stub
-		return this.type;
 	}
 
 	@Override

@@ -1,16 +1,19 @@
 package concretes.strategy;
 
 import abstracts.fighter.IFighter;
-import abstracts.strategy.ICapacity;
-import abstracts.weapon.IWeapon;
+import concretes.weapon.Weapon;
 
-public class MagicCapacity implements ICapacity {
+public abstract class MagicCapacity extends Weapon {
 	
-	public static final int MAGIC_EFFECT = 3;
+	public MagicCapacity(int power) {
+		super(power);
+	}
 
+	public static final int MAGIC_EFFECT = 3;
+	
 	@Override
-	public int getPowerCapacity(IFighter fighter, IWeapon weapon) {
-		return (fighter.getIntelligence() * weapon.getPower() / 100) * MAGIC_EFFECT;
+	public int getCapacityPower(IFighter fighter) {
+		return (fighter.getIntelligence() * this.getPower() / 100) * MAGIC_EFFECT;
 	}
 
 }

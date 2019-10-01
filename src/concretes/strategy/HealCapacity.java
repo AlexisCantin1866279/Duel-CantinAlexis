@@ -1,14 +1,17 @@
 package concretes.strategy;
 
 import abstracts.fighter.IFighter;
-import abstracts.strategy.ICapacity;
-import abstracts.weapon.IWeapon;
+import concretes.weapon.Weapon;
 
-public class HealCapacity implements ICapacity {
+public abstract class HealCapacity extends Weapon {
 
+	public HealCapacity(int power) {
+		super(power);
+	}
+	
 	@Override
-	public int getPowerCapacity(IFighter fighter, IWeapon weapon) {
-		return fighter.getIntelligence() * weapon.getPower() / 100;
+	public int getCapacityPower(IFighter fighter) {
+		return fighter.getIntelligence() * this.getPower() / 100;
 	}
 
 }

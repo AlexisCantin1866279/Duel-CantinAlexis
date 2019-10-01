@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IWeapon;
-import abstracts.weapon.IWeapon.weaponType;
 import exceptions.fighter.IllegalSkillPoints;
 import mocks.FireBallStub;
 import mocks.WeaponDummy;
@@ -99,15 +98,6 @@ public class FighterTest {
 
 		final int EXPECTED_LIFE = athlete.getInitialLifePoint();
 		assertEquals(EXPECTED_LIFE, initial);
-	}
-	
-	@Test
-	public void WHEN_FighterIsInitialise_THEN_HisWeaponHaveAType() {
-		
-		weaponType type = magicWarrior.getWeaponType();
-
-		final weaponType EXPECTED_TYPE = weaponType.ATTACK;
-		assertEquals(EXPECTED_TYPE, type);
 	}
 
 	@Test(expected = IllegalSkillPoints.class)

@@ -19,10 +19,4 @@ public class WeaponStub implements IWeapon{
 		return 0;
 	}
 
-	@Override
-	public weaponType getWeaponType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

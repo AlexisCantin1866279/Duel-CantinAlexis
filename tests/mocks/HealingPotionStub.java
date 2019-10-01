@@ -20,10 +20,4 @@ public class HealingPotionStub implements IWeapon {
 		return attackValue;
 	}
 
-	@Override
-	public weaponType getWeaponType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

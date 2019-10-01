@@ -6,9 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.infirmary.IInfirmary;
-import abstracts.weapon.IWeapon.weaponType;
 import concretes.infirmary.Infirmary;
-import exceptions.infirmary.HealTypeException;
 import mocks.FighterStub;
 
 public class InfirmaryTest {
@@ -22,11 +20,11 @@ public class InfirmaryTest {
 		infirmary = new Infirmary();
 	}
 
-	@Test(expected = HealTypeException.class)
-	public void WHEN_TheFighterHaveNoHealWeaponType() {
-		fighterToHeal.type = weaponType.ATTACK;
-		infirmary.nurse(fighterToHeal);
-	}
+//	@Test(expected = HealTypeException.class)
+//	public void WHEN_TheFighterHaveNoHealWeaponType() {
+//		fighterToHeal.type = weaponType.ATTACK;
+//		infirmary.nurse(fighterToHeal);
+//	}
 	
 	@Test
 	public void WHEN_TheFighterHaveALittleInjuryGetNurse_THEN_HeGetsAllHisLifePointBack() {

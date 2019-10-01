@@ -2,14 +2,13 @@ package concretes.infirmary;
 
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
-import abstracts.weapon.IWeapon.weaponType;
 import exceptions.infirmary.HealTypeException;
 
 public final class Infirmary implements IInfirmary {
 
 	public void nurse(IFighter fighter) {
-		if (fighter.getWeaponType() != weaponType.HEAL)
-			throw new HealTypeException();
+		/*if (fighter.getWeaponType() != weaponType.HEAL)
+			throw new HealTypeException();*/
 
 		int healValue = fighter.getPower(); // changer le nom ?
 

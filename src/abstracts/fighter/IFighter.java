@@ -1,7 +1,5 @@
 package abstracts.fighter;
 
-import abstracts.weapon.IWeapon.weaponType;
-
 public interface IFighter {
 
 	String getName();
@@ -29,8 +27,6 @@ public interface IFighter {
 	void setLifePoint(int lifePoint);
 
 	int getPower();
-
-	weaponType getWeaponType();
 
 	void destroyWeapon();
 }

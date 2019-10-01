@@ -1,9 +1,12 @@
 package concretes.weapon;
 
-public class Shield extends Weapon {
+import abstracts.weapon.IParade;
+import concretes.strategy.PhysicalCapacity;
 
-	public Shield(int power, weaponType weapontype, attackType attackType) {
-		super(power, weapontype, attackType);
+public class Shield extends PhysicalCapacity implements IParade {
+
+	public Shield(int power) {
+		super(power);
 	}
 
 }

@@ -18,10 +18,4 @@ public class HealingSpellStub implements IWeapon {
 		return WizardTest.WIZARD_INTELLIGENCE;
 	}
 
-	@Override
-	public weaponType getWeaponType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -1,9 +1,12 @@
 package concretes.weapon;
 
-public class HealingPotion extends Weapon {
+import abstracts.weapon.IHealing;
+import concretes.strategy.PotionCapacity;
 
-	public HealingPotion(int power, weaponType weapontype, attackType attackType) {
-		super(power, weapontype, attackType);
+public class HealingPotion extends PotionCapacity implements IHealing{
+
+	public HealingPotion(int power) {
+		super(power);
 	}
 
 }
