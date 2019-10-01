@@ -59,7 +59,7 @@ public class WarriorTest {
 	@Test
 	public void GIVEN_warrior_sword_WHEN_warriorAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
 
-		int attackValue = warrior.attack();
+		int attackValue = warrior.getPower();
 
 		assertEquals(WARRIOR_STRENGTH, attackValue);
 	}

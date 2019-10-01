@@ -10,7 +10,6 @@ import abstracts.weapon.IWeapon;
 import abstracts.weapon.IWeapon.weaponType;
 import abstracts.weapon.IWeapon.attackType;
 import concretes.strategy.MagicCapacity;
-import exceptions.weapon.IllegalAttack;
 import exceptions.weapon.IllegalWeaponPower;
 import mocks.FighterStub;
 
@@ -22,7 +21,7 @@ public class WeaponTest {
 	IWeapon shield;
 	IWeapon fireBall;
 	IWeapon healingSpell;
-	//IWeapon healingPotion;
+	IWeapon healingPotion;
 	
 	IFighter fighterStub;
 	
@@ -32,7 +31,7 @@ public class WeaponTest {
 		shield = new Shield(ANY_POWER, weaponType.PARADE, attackType.PHYSICAL);
 		fireBall = new FireBall(ANY_POWER, weaponType.ATTACK, attackType.MAGIC);
 		healingSpell = new HealingSpell(ANY_POWER, weaponType.HEAL, attackType.HEAL);
-		//healingPotion = new HealingPotion(ANY_POWER, weaponType.HEAL, attackType.POTION);
+		healingPotion = new HealingPotion(ANY_POWER, weaponType.HEAL, attackType.POTION);
 		
 		fighterStub = new FighterStub();
 	}
@@ -42,6 +41,13 @@ public class WeaponTest {
 		int power = sword.getPower();
 		
 		assertEquals(ANY_POWER, power);
+	}
+	
+	@Test
+	public void WHEN_WeaponTypeIsAskedOnWeapon_THEN_TheWeaponTypeIsReturn() {
+		weaponType type = sword.getWeaponType();
+		
+		assertEquals(weaponType.ATTACK, type);
 	}
 	
 	@Test (expected = IllegalWeaponPower.class)
@@ -59,32 +65,42 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void GIVEN_Sword_WHEN_AttackIsCalled_THEN_TheValueOfTheAttackIsReturned() {
-		int attackValue = sword.attack(fighterStub);
+	public void GIVEN_Sword_WHEN_CapacityPowerIsCalled_THEN_TheValueOfTheAttackIsReturned() {
+		int attackValue = sword.getCapacityPower(fighterStub);
 		
 		final int EXPECTED = fighterStub.getStrength() * sword.getPower() / 100;
 		assertEquals(EXPECTED, attackValue);
 	}
 	
 	@Test
-	public void GIVEN_Shield_WHEN_AttackIsCalled_THEN_TheValueOfTheAttackIsReturned() {
-		int attackValue = shield.attack(fighterStub);
+	public void GIVEN_Shield_WHEN_CapacityPowerIsCalled_THEN_TheValueOfTheAttackIsReturned() {
+		int attackValue = shield.getCapacityPower(fighterStub);
 		
 		final int EXPECTED = fighterStub.getStrength() * shield.getPower() / 100;
 		assertEquals(EXPECTED, attackValue);
 	}
 	
 	@Test
-	public void GIVEN_FireBall_WHEN_AttackIsCalled_THEN_TheValueOfTheAttackIsReturned() {
-		int attackValue = fireBall.attack(fighterStub);
+	public void GIVEN_FireBall_WHEN_CapacityPowerIsCalled_THEN_TheValueOfTheAttackIsReturned() {
+		int attackValue = fireBall.getCapacityPower(fighterStub);
 		
 		final int EXPECTED = (fighterStub.getIntelligence() * fireBall.getPower() / 100) * MagicCapacity.MAGIC_EFFECT;
 		assertEquals(EXPECTED, attackValue);
 	}
 	
-	@Test (expected = IllegalAttack.class)
-	public void GIVEN_HealingSpell_WHEN_AttackIsCalled_THEN_TheValueOfTheAttackIsReturned() {
-		@SuppressWarnings("unused")
-		int attackValue = healingSpell.attack(fighterStub);
+	@Test
+	public void GIVEN_HealingSpell_WHEN_CapacityPowerIsCalled_THEN_TheValueOfTheAttackIsReturned() {
+		int attackValue = healingSpell.getCapacityPower(fighterStub);
+		
+		final int EXPECTED = fighterStub.getIntelligence() * fireBall.getPower() / 100;
+		assertEquals(EXPECTED, attackValue);
+	}
+	
+	@Test
+	public void GIVEN_HealingPotion_WHEN_CapacityPowerIsCalled_THEN_TheValueOfTheAttackIsReturned() {
+		int attackValue = healingPotion.getCapacityPower(fighterStub);
+		
+		final int EXPECTED = fighterStub.getDexterity() * healingPotion.getPower() / 100;
+		assertEquals(EXPECTED, attackValue);
 	}
 }

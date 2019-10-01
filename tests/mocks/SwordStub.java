@@ -13,7 +13,7 @@ public class SwordStub implements IWeapon {
 	}
 
 	@Override
-	public int attack(IFighter fighter) {
+	public int getCapacityPower(IFighter fighter) {
 		// TODO Auto-generated method stub
 		return WarriorTest.WARRIOR_STRENGTH;
 	}

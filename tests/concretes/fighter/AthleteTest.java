@@ -61,7 +61,7 @@ public class AthleteTest {
 	@Test
 	public void GIVEN_athlete_healingPotion_WHEN_athleteHisWeapon_THEN_TheCapacityValueIsReturned() {
 
-		int attackValue = athlete.attack();
+		int attackValue = athlete.getPower();
 
 		assertEquals(ATHLETE_DEXTERITY, attackValue);
 	}

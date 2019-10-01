@@ -81,7 +81,7 @@ public class FighterStub implements IFighter {
 	}
 
 	@Override
-	public int attack() {
+	public int getPower() {
 		// TODO Auto-generated method stub
 		return HP_TO_HEAL;
 	}

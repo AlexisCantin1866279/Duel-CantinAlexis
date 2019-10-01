@@ -13,7 +13,7 @@ public class HealingSpellStub implements IWeapon {
 	}
 
 	@Override
-	public int attack(IFighter fighter) {
+	public int getCapacityPower(IFighter fighter) {
 		// TODO Auto-generated method stub
 		return WizardTest.WIZARD_INTELLIGENCE;
 	}

@@ -120,7 +120,7 @@ public class FighterTest {
 	@Test
 	public void GIVEN_warrior_fireBall_WHEN_warriorAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
 
-		int attackValue = magicWarrior.attack();
+		int attackValue = magicWarrior.getPower();
 
 		assertEquals(WizardTest.WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS, attackValue);
 	}

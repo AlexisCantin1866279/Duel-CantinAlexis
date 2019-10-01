@@ -81,8 +81,8 @@ public abstract class Fighter implements IFighter {
 		this.lifePoint = lifePoint;
 	}
 	
-	public int attack() {
-		return this.weapon.attack(this);
+	public int getPower() {
+		return this.weapon.getCapacityPower(this);
 	}
 	
 	public weaponType getWeaponType() {

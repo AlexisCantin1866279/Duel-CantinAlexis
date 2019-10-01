@@ -73,7 +73,7 @@ public class WizardTest {
 	@Test
 	public void GIVEN_wizard_fireBall_WHEN_wizardAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
 
-		int attackValue = wizardOffensive.attack();
+		int attackValue = wizardOffensive.getPower();
 
 		assertEquals(WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS, attackValue);
 	}
@@ -81,7 +81,7 @@ public class WizardTest {
 	@Test
 	public void GIVEN_wizard_healingSpell_WHEN_wizardAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
 
-		int attackValue = wizardHealing.attack();
+		int attackValue = wizardHealing.getPower();
 
 		assertEquals(WIZARD_INTELLIGENCE, attackValue);
 	}

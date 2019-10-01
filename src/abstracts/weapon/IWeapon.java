@@ -16,6 +16,6 @@ public interface IWeapon {
 
 	weaponType getWeaponType();
 
-	int attack(IFighter fighter);
+	int getCapacityPower(IFighter fighter);
 
 }

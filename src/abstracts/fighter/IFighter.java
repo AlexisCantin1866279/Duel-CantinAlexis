@@ -28,7 +28,7 @@ public interface IFighter {
 
 	void setLifePoint(int lifePoint);
 
-	int attack();
+	int getPower();
 
 	weaponType getWeaponType();
 

@@ -14,7 +14,7 @@ public class WeaponStub implements IWeapon{
 	}
 
 	@Override
-	public int attack(IFighter fighter) {
+	public int getCapacityPower(IFighter fighter) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
