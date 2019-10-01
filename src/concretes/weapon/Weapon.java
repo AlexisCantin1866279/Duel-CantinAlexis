@@ -32,6 +32,10 @@ public abstract class Weapon implements IWeapon {
 	public int getPower() {
 		return this.power;
 	}
+	
+	public weaponType getWeaponType() {
+		return this.weapontype;
+	}
 
 	public int attack(IFighter fighter) {
 		validateAttack();

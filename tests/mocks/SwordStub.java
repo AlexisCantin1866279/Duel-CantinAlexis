@@ -18,4 +18,10 @@ public class SwordStub implements IWeapon {
 		return WarriorTest.WARRIOR_STRENGTH;
 	}
 
+	@Override
+	public weaponType getWeaponType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

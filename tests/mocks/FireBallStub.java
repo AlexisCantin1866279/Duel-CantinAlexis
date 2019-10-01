@@ -6,6 +6,8 @@ import concretes.fighter.Wizard;
 import concretes.fighter.WizardTest;
 
 public class FireBallStub implements IWeapon {
+	
+	public weaponType type = weaponType.ATTACK;
 
 	@Override
 	public int getPower() {
@@ -17,6 +19,12 @@ public class FireBallStub implements IWeapon {
 	public int attack(IFighter fighter) {
 		// TODO Auto-generated method stub
 		return WizardTest.WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS;
+	}
+
+	@Override
+	public weaponType getWeaponType() {
+		// TODO Auto-generated method stub
+		return type;
 	}
 
 }

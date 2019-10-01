@@ -7,13 +7,15 @@ public interface IWeapon {
 	enum attackType {
 		PHYSICAL, MAGIC, HEAL, POTION
 	}
-	
+
 	enum weaponType {
 		ATTACK, PARADE, HEAL
 	}
 
 	int getPower();
-	
+
+	weaponType getWeaponType();
+
 	int attack(IFighter fighter);
 
 }

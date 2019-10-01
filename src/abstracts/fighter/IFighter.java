@@ -1,6 +1,9 @@
 package abstracts.fighter;
 
+import abstracts.weapon.IWeapon.weaponType;
+
 public interface IFighter {
+
 	String getName();
 
 	int getStrength();
@@ -21,7 +24,11 @@ public interface IFighter {
 
 	int getLifePoint();
 
+	int getInitialLifePoint();
+
 	void setLifePoint(int lifePoint);
-	
+
 	int attack();
+
+	weaponType getWeaponType();
 }
