@@ -1,11 +1,12 @@
 package mocks;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IAttack;
 import abstracts.weapon.IWeapon;
 import concretes.fighter.Wizard;
 import concretes.fighter.WizardTest;
 
-public class FireBallStub implements IWeapon {
+public class FireBallStub implements IWeapon, IAttack {
 
 	@Override
 	public int getPower() {

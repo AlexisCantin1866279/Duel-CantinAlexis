@@ -1,7 +1,9 @@
 package mocks;
 
+import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
+import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
 import abstracts.weapon.IWeapon;
 import concretes.infirmary.Infirmary;
@@ -9,6 +11,14 @@ import concretes.infirmary.Infirmary;
 public class FighterSpy implements IFighter {
 
 	public boolean destroyWeaponHasBeenCalled = false;
+	public boolean challengeRequest = false;
+	
+	public boolean strengthHaveBeenCalled = false;
+	public boolean dexterityHaveBeenCalled = false;
+	public boolean intelligenceHaveBeenCalled = false;
+	public boolean concentrationHaveBeenCalled = false;
+	public boolean lifeHaveBeenCalled = false;
+	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -23,7 +33,7 @@ public class FighterSpy implements IFighter {
 
 	@Override
 	public void setStrength(int strength) {
-		// TODO Auto-generated method stub
+		this.strengthHaveBeenCalled = true;
 		
 	}
 
@@ -35,7 +45,7 @@ public class FighterSpy implements IFighter {
 
 	@Override
 	public void setDexterity(int dexterity) {
-		// TODO Auto-generated method stub
+		this.dexterityHaveBeenCalled = true;
 		
 	}
 
@@ -47,7 +57,7 @@ public class FighterSpy implements IFighter {
 
 	@Override
 	public void setIntelligence(int intelligence) {
-		// TODO Auto-generated method stub
+		this.intelligenceHaveBeenCalled = true;
 		
 	}
 
@@ -59,7 +69,7 @@ public class FighterSpy implements IFighter {
 
 	@Override
 	public void setConcentration(int concentration) {
-		// TODO Auto-generated method stub
+		this.concentrationHaveBeenCalled = true;
 		
 	}
 
@@ -77,7 +87,7 @@ public class FighterSpy implements IFighter {
 
 	@Override
 	public void setLifePoint(int lifePoint) {
-		// TODO Auto-generated method stub
+		this.lifeHaveBeenCalled = true;
 		
 	}
 
@@ -98,6 +108,30 @@ public class FighterSpy implements IFighter {
 	@Override
 	public void destroyWeapon() {
 		destroyWeaponHasBeenCalled = true;
+		
+	}
+
+	@Override
+	public void provoke(IFighter defender, IAttack attackerWeapon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void challenge(IDuel duelChallenger) {
+		this.challengeRequest = true;
+		
+	}
+
+	@Override
+	public void hitBack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surrender() {
+		// TODO Auto-generated method stub
 		
 	}
 

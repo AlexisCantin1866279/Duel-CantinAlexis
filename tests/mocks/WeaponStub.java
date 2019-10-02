@@ -1,9 +1,10 @@
 package mocks;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IAttack;
 import abstracts.weapon.IWeapon;
 
-public class WeaponStub implements IWeapon{
+public class WeaponStub implements IWeapon, IAttack {
 	
 	public int power = 10;
 

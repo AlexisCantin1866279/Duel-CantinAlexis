@@ -1,6 +1,9 @@
 package mocks;
 
+import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IAttack;
+import concretes.duel.Duel;
 
 public class FighterStub implements IFighter {
 	
@@ -10,7 +13,10 @@ public class FighterStub implements IFighter {
 	public int dexterity = 10;
 	public int strength = 20;
 	public int intelligence = 30;
+	public int concentration = 0;
 	public int hp = BASE_HP;
+	public int power = HP_TO_HEAL;
+	
 	public boolean destroy = false;
 
 	@Override
@@ -27,8 +33,7 @@ public class FighterStub implements IFighter {
 
 	@Override
 	public void setStrength(int strength) {
-		// TODO Auto-generated method stub
-
+		this.strength += Duel.REWARD_DELTA;
 	}
 
 	@Override
@@ -39,7 +44,7 @@ public class FighterStub implements IFighter {
 
 	@Override
 	public void setDexterity(int dexterity) {
-		// TODO Auto-generated method stub
+		this.dexterity += Duel.REWARD_DELTA;
 
 	}
 
@@ -51,19 +56,18 @@ public class FighterStub implements IFighter {
 
 	@Override
 	public void setIntelligence(int intelligence) {
-		// TODO Auto-generated method stub
+		this.intelligence += Duel.REWARD_DELTA;
 
 	}
 
 	@Override
 	public int getConcentration() {
-		// TODO Auto-generated method stub
-		return 0;
+		return concentration;
 	}
 
 	@Override
 	public void setConcentration(int concentration) {
-		// TODO Auto-generated method stub
+		this.concentration += Duel.REWARD_DELTA;
 
 	}
 
@@ -81,7 +85,7 @@ public class FighterStub implements IFighter {
 	@Override
 	public int getPower() {
 		// TODO Auto-generated method stub
-		return HP_TO_HEAL;
+		return this.power;
 	}
 
 	@Override
@@ -97,6 +101,30 @@ public class FighterStub implements IFighter {
 
 	@Override
 	public void nurse() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void provoke(IFighter defender, IAttack attackerWeapon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void challenge(IDuel duelChallenger) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hitBack() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surrender() {
 		// TODO Auto-generated method stub
 		
 	}

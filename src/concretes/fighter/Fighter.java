@@ -1,9 +1,12 @@
 package concretes.fighter;
 
+import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
+import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
 import abstracts.weapon.IWeapon;
+import concretes.duel.Duel;
 import concretes.infirmary.Infirmary;
 import exceptions.fighter.IllegalSkillPoints;
 
@@ -23,6 +26,8 @@ public abstract class Fighter implements IFighter {
 	
 	private IWeapon weapon;
 	private IInfirmary infirmary;
+	private IDuel duel;
+	private IDuel challengerDuel = null;
 
 	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
 		validateSkills(strength, dexterity, intelligence, concentration);
@@ -31,10 +36,18 @@ public abstract class Fighter implements IFighter {
 		this.dexterity = dexterity;
 		this.intelligence = intelligence;
 		this.concentration = concentration;
-		this.weapon = weapon; // mettre en list pour en posseder plus qu'une
 		this.lifePoint = BASE_HP - (strength + dexterity + intelligence + concentration);
 		INITIAL_HP = this.lifePoint;
+		
+		this.weapon = weapon; // mettre en list pour en posseder plus qu'une
+		
 		this.infirmary = new Infirmary();
+		this.duel = new Duel(this);
+	}
+	
+	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {
+		if (strength + dexterity + intelligence + concentration > MAX_SKILLS)
+			throw new IllegalSkillPoints();
 	}
 
 	public String getName() {
@@ -97,9 +110,20 @@ public abstract class Fighter implements IFighter {
 		this.infirmary.nurse(this, (IHealing) this.weapon);
 	}
 
-	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {
-		if (strength + dexterity + intelligence + concentration > MAX_SKILLS)
-			throw new IllegalSkillPoints();
+	public void provoke(IFighter defender, IAttack attackerWeapon) {
+		this.duel.provoke(defender, attackerWeapon);
+	}
+	
+	public void challenge(IDuel duelChallenger) {
+		this.challengerDuel = duelChallenger;
+	}
+	
+	public void hitBack() {
+		this.challengerDuel.fight();
+	}
+	
+	public void surrender() {
+		this.challengerDuel.surrender();
 	}
 
 }

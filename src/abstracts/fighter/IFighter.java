@@ -1,5 +1,8 @@
 package abstracts.fighter;
 
+import abstracts.duel.IDuel;
+import abstracts.weapon.IAttack;
+
 public interface IFighter {
 
 	String getName();
@@ -20,9 +23,9 @@ public interface IFighter {
 
 	void setConcentration(int concentration);
 
-	int getLifePoint();
-
 	int getInitialLifePoint();
+
+	int getLifePoint();
 
 	void setLifePoint(int lifePoint);
 
@@ -31,4 +34,12 @@ public interface IFighter {
 	void nurse();
 
 	void destroyWeapon();
+
+	void provoke(IFighter defender, IAttack attackerWeapon);
+
+	void challenge(IDuel duelChallenger);
+
+	void hitBack();
+
+	void surrender();
 }

@@ -6,11 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.weapon.IAttack;
 import abstracts.weapon.IWeapon;
+import concretes.duel.Duel;
 import exceptions.fighter.IllegalSkillPoints;
 import mocks.FighterSpy;
 import mocks.FireBallStub;
 import mocks.HealingSpellStub;
+import mocks.SwordStub;
 import mocks.WeaponDummy;
 
 public class FighterTest {
@@ -22,18 +25,21 @@ public class FighterTest {
 	private IFighter wizard;
 	private IFighter magicWarrior;
 	private IFighter healingWizard;
+	private IFighter fightingAthlete;
 	
 	private FighterSpy fighterSpy;
 
 	private IWeapon weaponDummy;
 	private IWeapon fireBallStub;
 	private IWeapon healingSpellStub;
+	private IWeapon swordStub;
 
 	@Before
 	public void initilizeFighter() {
 		weaponDummy = new WeaponDummy();
 		fireBallStub = new FireBallStub();
 		healingSpellStub = new HealingSpellStub();
+		swordStub = new SwordStub();
 		fighterSpy = new FighterSpy();
 		
 		warrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY,
@@ -46,6 +52,8 @@ public class FighterTest {
 				WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, fireBallStub);
 		healingWizard = new Wizard(ANY_NAME, WizardTest.WIZARD_STRENGTH, WizardTest.WIZARD_DEXTERITY,
 				WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, healingSpellStub);
+		fightingAthlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY,
+				AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION, swordStub);
 	}
 
 	@Test
@@ -143,6 +151,329 @@ public class FighterTest {
 		fighterSpy.nurse();
 		
 		assertEquals(true, fighterSpy.destroyWeaponHasBeenCalled);
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisStrengthIncrease() {
+		
+		int initialStrength = magicWarrior.getStrength();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialStrength + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getStrength());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisDexterityIncrease() {
+		
+		int initialDexterity = magicWarrior.getDexterity();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialDexterity + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisIntelligenceIncrease() {
+		
+		int initialIntelligence = magicWarrior.getIntelligence();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialIntelligence + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisConcentrationIncrease() {
+		
+		int initialConcentration = magicWarrior.getConcentration();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialConcentration + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getConcentration());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisOpposantLooseHp() {
+		
+		int initialLifePoint = fightingAthlete.getLifePoint();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialLifePoint - (magicWarrior.getPower() - fightingAthlete.getPower());
+		assertEquals(EXPECTED, fightingAthlete.getLifePoint());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisOpposantLoseStrength() {
+		
+		int initialStrength = fightingAthlete.getStrength();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialStrength - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getStrength());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisOpposantLoseDexterity() {
+		
+		int initialDexterity = fightingAthlete.getDexterity();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialDexterity - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisOpposantLoseIntelligence() {
+		
+		int initialIntelligence = fightingAthlete.getIntelligence();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialIntelligence - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_FighterWinFight_THEN_HisOpposantLoseConcentration() {
+		
+		int initialConcentration = fightingAthlete.getConcentration();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack();
+		
+		final int EXPECTED = initialConcentration - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getConcentration());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpposantStrengthIncrease() {
+		
+		int initialStrength = magicWarrior.getStrength();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialStrength + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getStrength());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpposantDexterityIncrease() {
+		
+		int initialDexterity = magicWarrior.getDexterity();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialDexterity + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpposantIntelligenceIncrease() {
+		
+		int initialIntelligence = magicWarrior.getIntelligence();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialIntelligence + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpponantConcentrationIncrease() {
+		
+		int initialConcentration = magicWarrior.getConcentration();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialConcentration + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getConcentration());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HeLosesHp() {
+		
+		int initialLifePoint = fightingAthlete.getLifePoint();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialLifePoint - (magicWarrior.getPower() - fightingAthlete.getPower());
+		assertEquals(EXPECTED, fightingAthlete.getLifePoint());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpposantStrengthDecrease() {
+		
+		int initialStrength = fightingAthlete.getStrength();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialStrength - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getStrength());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisOpposantDexterityDecrease() {
+		
+		int initialDexterity = fightingAthlete.getDexterity();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialDexterity - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HistIntelligenceDecrease() {
+		
+		int initialIntelligence = fightingAthlete.getIntelligence();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialIntelligence - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_FighterLoseFight_THEN_HisConcentrationDecrease() {
+		
+		int initialConcentration = fightingAthlete.getConcentration();
+		
+		fightingAthlete.provoke(magicWarrior, (IAttack) swordStub);
+		magicWarrior.hitBack();
+		
+		final int EXPECTED = initialConcentration - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getConcentration());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisChallengerStrengthIncrease() {
+		
+		int initialStrength = magicWarrior.getStrength();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialStrength + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getStrength());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisChallengerDexterityIncrease() {
+		
+		int initialDexterity = magicWarrior.getDexterity();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialDexterity + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisIntelligenceChallengerIncrease() {
+		
+		int initialIntelligence = magicWarrior.getIntelligence();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialIntelligence + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisChallengerConcentrationIncrease() {
+		
+		int initialConcentration = magicWarrior.getConcentration();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialConcentration + Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, magicWarrior.getConcentration());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HeDoesntLooseHp() {
+		
+		int initialLifePoint = fightingAthlete.getLifePoint();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		assertEquals(initialLifePoint, fightingAthlete.getLifePoint());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisStrengthDecrease() {
+		
+		int initialStrength = fightingAthlete.getStrength();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialStrength - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getStrength());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisDexterityDecrease() {
+		
+		int initialDexterity = fightingAthlete.getDexterity();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialDexterity - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getDexterity());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisIntelligenceDecrease() {
+		
+		int initialIntelligence = fightingAthlete.getIntelligence();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialIntelligence - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getIntelligence());
+	}
+	
+	@Test
+	public void WHEN_DefenderSurrender_THEN_HisOpposantLoseConcentrationDecrease() {
+		
+		int initialConcentration = fightingAthlete.getConcentration();
+		
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.surrender();
+		
+		final int EXPECTED = initialConcentration - Duel.REWARD_DELTA;
+		assertEquals(EXPECTED, fightingAthlete.getConcentration());
 	}
 
 }
