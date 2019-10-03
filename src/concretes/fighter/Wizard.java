@@ -1,5 +1,7 @@
 package concretes.fighter;
 
+import java.util.List;
+
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.WizardIllegalSkillPoints;
 
@@ -7,8 +9,9 @@ public class Wizard extends Fighter {
 
 	public static final int WIZARD_DELTA_SILLS = 15;
 
-	public Wizard(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
-		super(name, strength, dexterity, intelligence, concentration, weapon);
+	public Wizard(String name, int strength, int dexterity, int intelligence, int concentration,
+			List<IWeapon> capacityList) {
+		super(name, strength, dexterity, intelligence, concentration, capacityList);
 		validateWizardSkills(strength, dexterity, intelligence, concentration);
 	}
 

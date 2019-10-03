@@ -1,5 +1,5 @@
 package abstracts.weapon;
 
-public interface IHealing {
+public interface IHealing extends IWeapon {
 
 }

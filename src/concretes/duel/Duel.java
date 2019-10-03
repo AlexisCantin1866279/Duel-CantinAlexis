@@ -3,6 +3,7 @@ package concretes.duel;
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IAttack;
+import abstracts.weapon.IWeapon;
 
 public class Duel implements IDuel {
 	
@@ -27,9 +28,9 @@ public class Duel implements IDuel {
 	}
 
 	@Override
-	public void fight() {
-		int attackerPower = this.attacker.getPower(); //avec arme attaque
-		int defenderPower = this.defender.getPower(); //avec arme defense ou attaque
+	public void fight(IWeapon defenderWeapon) {
+		int attackerPower = this.attacker.getPower(attackerWeapon);
+		int defenderPower = this.defender.getPower(defenderWeapon);
 		int lostLife;
 
 		if (attackerPower >= defenderPower) {

@@ -1,5 +1,7 @@
 package concretes.fighter;
 
+import java.util.List;
+
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.WarriorIllegalSkillPoints;
 
@@ -7,8 +9,9 @@ public class Warrior extends Fighter {
 
 	public static final int WARRIOR_DELTA_SKILLS = 10;
 
-	public Warrior(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
-		super(name, strength, dexterity, intelligence, concentration, weapon);
+	public Warrior(String name, int strength, int dexterity, int intelligence, int concentration,
+			List<IWeapon> capacityList) {
+		super(name, strength, dexterity, intelligence, concentration, capacityList);
 		validateWarriorSkills(strength, dexterity, intelligence, concentration);
 	}
 

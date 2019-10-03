@@ -1,5 +1,5 @@
 package abstracts.weapon;
 
-public interface IParade {
+public interface IParade extends IWeapon {
 
 }

@@ -1,20 +1,25 @@
 package concretes.fighter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
+import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
 import concretes.infirmary.Infirmary;
+import exceptions.fighter.IllegalNumberCapacitiesStart;
 import exceptions.fighter.IllegalSkillPoints;
 
 public abstract class Fighter implements IFighter {
 
 	public static final int MAX_SKILLS = 100;
 	public static final int BASE_HP = 200;
-	
+
 	private final int INITIAL_HP;
 
 	private String name;
@@ -23,14 +28,28 @@ public abstract class Fighter implements IFighter {
 	private int intelligence;
 	private int concentration;
 	private int lifePoint;
-	
-	private IWeapon weapon;
+
+	private List<IWeapon> capacityList;
 	private IInfirmary infirmary;
 	private IDuel duel;
 	private IDuel challengerDuel = null;
 
-	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
+	/**
+	 * Constructeur de tout combattant
+	 * 
+	 * @param name,          nom du combattant
+	 * @param strength,      force physique du combattant
+	 * @param dexterity,     dexterite du combattant
+	 * @param intelligence,  intelligence du cmbattant
+	 * @param concentration, concentration du combattant
+	 * @param capacityList,  liste d'arme que le combattant possede, doit en
+	 *                       posseder plus que 2
+	 */
+	public Fighter(String name, int strength, int dexterity, int intelligence, int concentration,
+			List<IWeapon> capacityList) {
 		validateSkills(strength, dexterity, intelligence, concentration);
+		validateCapacity(capacityList);
+
 		this.name = name;
 		this.strength = strength;
 		this.dexterity = dexterity;
@@ -38,16 +57,21 @@ public abstract class Fighter implements IFighter {
 		this.concentration = concentration;
 		this.lifePoint = BASE_HP - (strength + dexterity + intelligence + concentration);
 		INITIAL_HP = this.lifePoint;
-		
-		this.weapon = weapon; // mettre en list pour en posseder plus qu'une
-		
+
+		this.capacityList = new ArrayList<IWeapon>(capacityList);
+
 		this.infirmary = new Infirmary();
 		this.duel = new Duel(this);
 	}
-	
+
 	private void validateSkills(int strength, int dexterity, int intelligence, int concentration) {
 		if (strength + dexterity + intelligence + concentration > MAX_SKILLS)
 			throw new IllegalSkillPoints();
+	}
+
+	private void validateCapacity(List<IWeapon> capacityList) {
+		if (capacityList.size() < 2)
+			throw new IllegalNumberCapacitiesStart();
 	}
 
 	public String getName() {
@@ -89,7 +113,7 @@ public abstract class Fighter implements IFighter {
 	public int getLifePoint() {
 		return lifePoint;
 	}
-	
+
 	public int getInitialLifePoint() {
 		return this.INITIAL_HP;
 	}
@@ -97,31 +121,61 @@ public abstract class Fighter implements IFighter {
 	public void setLifePoint(int lifePoint) {
 		this.lifePoint = lifePoint;
 	}
-	
-	public int getPower() {
-		return this.weapon.getCapacityPower(this);
-	}
-	
-	public void destroyWeapon() {
-		this.weapon = null;
-	}
-	
-	public void nurse() {
-		this.infirmary.nurse(this, (IHealing) this.weapon);
+
+	/**
+	 * Permet d'avoir la puissance du combattant avec son arme
+	 */
+	public int getPower(IWeapon weapon) {
+		return weapon.getCapacityPower(this);
 	}
 
+	/**
+	 * Enleve une arme du combattant
+	 */
+	public void destroyWeapon(IWeapon weapon) {
+
+		this.capacityList.remove(weapon);
+	}
+
+	/**
+	 * Permet de se soigner, si le combattant possede une capacite de soin
+	 */
+	public void nurse(IHealing healingCapacity) {
+		this.infirmary.nurse(this, healingCapacity);
+	}
+
+	/**
+	 * methode qui provoque un autre combattant en duel
+	 */
 	public void provoke(IFighter defender, IAttack attackerWeapon) {
 		this.duel.provoke(defender, attackerWeapon);
 	}
-	
+
+	/**
+	 * methode qui initialise un defi adverse
+	 */
 	public void challenge(IDuel duelChallenger) {
 		this.challengerDuel = duelChallenger;
 	}
-	
-	public void hitBack() {
-		this.challengerDuel.fight();
+
+	/**
+	 * Permet d'accepter le duel, sinon lance exception
+	 */
+	public void hitBack(IAttack defenderWeapon) {
+		this.challengerDuel.fight(defenderWeapon);
 	}
 	
+	/**
+	 * Permet d'accepter le duel, sinon lance exception
+	 */
+	public void hitBack(IParade defenderWeapon) {
+		this.challengerDuel.fight(defenderWeapon);
+	}
+
+	/**
+	 * Permet d'abandonner le combat si le combattant est provoque en duel, sinon
+	 * lance exception
+	 */
 	public void surrender() {
 		this.challengerDuel.surrender();
 	}

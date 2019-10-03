@@ -2,6 +2,9 @@ package abstracts.fighter;
 
 import abstracts.duel.IDuel;
 import abstracts.weapon.IAttack;
+import abstracts.weapon.IHealing;
+import abstracts.weapon.IParade;
+import abstracts.weapon.IWeapon;
 
 public interface IFighter {
 
@@ -29,17 +32,19 @@ public interface IFighter {
 
 	void setLifePoint(int lifePoint);
 
-	int getPower();
+	int getPower(IWeapon weapon);
 
-	void nurse();
+	void nurse(IHealing healingCapacity);
 
-	void destroyWeapon();
+	void destroyWeapon(IWeapon weapon);
 
 	void provoke(IFighter defender, IAttack attackerWeapon);
 
 	void challenge(IDuel duelChallenger);
 
-	void hitBack();
+	void hitBack(IAttack defenderWeapon);
+	
+	void hitBack(IParade defenderWeapon);
 
 	void surrender();
 }

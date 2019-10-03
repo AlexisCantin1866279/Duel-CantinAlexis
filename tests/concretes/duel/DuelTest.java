@@ -5,91 +5,93 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import abstracts.weapon.IAttack;
+import abstracts.weapon.IWeapon;
 import mocks.DuelMock;
 import mocks.FighterSpy;
 import mocks.FighterStub;
-import mocks.SwordStub;
+import mocks.WeaponDummy;
 
 public class DuelTest {
 	
-	private DuelMock duel;
+	private DuelMock duelMock;
 	private FighterStub attackerStub;
 	private FighterSpy defenderSpy;
-	private SwordStub swordStub;
+	private IWeapon weaponDummy;
 	
 	@Before
 	public void prepareDuel() {
 		attackerStub = new FighterStub();
 		defenderSpy = new FighterSpy();
-		swordStub = new SwordStub();
-		duel = new DuelMock(attackerStub);
+		weaponDummy = new WeaponDummy();
+		duelMock = new DuelMock(attackerStub);
 		
 	}
 
 	@Test
 	public void WHEN_DuelIsInitialise_THEN_TheAttackerIsSet() {
 		
-		assertEquals(attackerStub, duel.attacker);
+		assertEquals(attackerStub, duelMock.attacker);
 	}
 	
 	@Test
 	public void WHEN_DuelIsInitialise_THEN_TheDefenderIsNull() {
 		
-		assertNull(duel.defender);
+		assertNull(duelMock.defender);
 	}
 	
 	@Test
 	public void WHEN_DuelIsInitialise_THEN_TheAttackerWeaponIsNull() {
 		
-		assertNull(duel.attackerWeapon);
+		assertNull(duelMock.attackerWeapon);
 	}
 	
 	@Test
 	public void WHEN_DuelIsProvoked_THEN_TheDefenderIsSet() {
-		duel.provoke(defenderSpy, swordStub);
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
 		
-		assertEquals(defenderSpy, duel.defender);
+		assertEquals(defenderSpy, duelMock.defender);
 	}
 	
 	@Test
 	public void WHEN_DuelIsProvoked_THEN_TheAttackerWeaponIsSet() {
-		duel.provoke(defenderSpy, swordStub);
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
 		
-		assertEquals(swordStub, duel.attackerWeapon);
+		assertEquals(weaponDummy, duelMock.attackerWeapon);
 	}
 	
 	@Test
 	public void WHEN_AttackerIsMorePowerfullThanTheDefender_THEN_HeWinsTheFight() {
-		duel.provoke(defenderSpy, swordStub);
-		duel.fight();
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
+		duelMock.fight(weaponDummy);
 		
-		assertEquals(attackerStub, duel.winner);
+		assertEquals(attackerStub, duelMock.winner);
 	}
 	
 	@Test
 	public void WHEN_DefenderIsMorePowerfullThanTheAttacker_THEN_HeWinsTheFight() {
-		duel.provoke(defenderSpy, swordStub);
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
 		attackerStub.power = -1;
-		duel.fight();
+		duelMock.fight(weaponDummy);
 		
-		assertEquals(defenderSpy, duel.winner);
+		assertEquals(defenderSpy, duelMock.winner);
 	}
 	
 	@Test
 	public void WHEN_AttackerPowerIsEqualToTheDefender_THEN_TheAttackerWinsTheFight() {
-		duel.provoke(defenderSpy, swordStub);
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
 		attackerStub.power = 0;
-		duel.fight();
+		duelMock.fight(weaponDummy);
 		
-		assertEquals(attackerStub, duel.winner);
+		assertEquals(attackerStub, duelMock.winner);
 	}
 	
 	@Test
 	public void WHEN_DefenderRefuseTofight_THEN_TheAttackerWinsTheFight() {
-		duel.provoke(defenderSpy, swordStub);
-		duel.surrender();
+		duelMock.provoke(defenderSpy, (IAttack) weaponDummy);
+		duelMock.surrender();
 		
-		assertEquals(attackerStub, duel.winner);
+		assertEquals(attackerStub, duelMock.winner);
 	}
 
 }

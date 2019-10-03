@@ -1,5 +1,5 @@
 package abstracts.weapon;
 
-public interface IAttack {
+public interface IAttack extends IWeapon {
 
 }

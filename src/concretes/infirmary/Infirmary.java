@@ -9,7 +9,7 @@ public final class Infirmary implements IInfirmary {
 	@Override
 	public void nurse(IFighter fighter, IHealing capacity) {
 
-		int healValue = fighter.getPower();
+		int healValue = fighter.getPower(capacity);
 
 		if (healValue + fighter.getLifePoint() <= fighter.getInitialLifePoint()) {
 			fighter.setLifePoint(healValue + fighter.getLifePoint());
@@ -17,6 +17,6 @@ public final class Infirmary implements IInfirmary {
 			fighter.setLifePoint(fighter.getInitialLifePoint());
 		}
 		
-		fighter.destroyWeapon();
+		fighter.destroyWeapon(capacity);
 	}
 }

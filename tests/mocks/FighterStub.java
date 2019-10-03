@@ -3,6 +3,9 @@ package mocks;
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IAttack;
+import abstracts.weapon.IHealing;
+import abstracts.weapon.IParade;
+import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
 
 public class FighterStub implements IFighter {
@@ -83,26 +86,9 @@ public class FighterStub implements IFighter {
 	}
 
 	@Override
-	public int getPower() {
-		// TODO Auto-generated method stub
-		return this.power;
-	}
-
-	@Override
 	public int getInitialLifePoint() {
 		// TODO Auto-generated method stub
 		return BASE_HP;
-	}
-
-	@Override
-	public void destroyWeapon() {
-		destroy = true;
-	}
-
-	@Override
-	public void nurse() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -118,13 +104,37 @@ public class FighterStub implements IFighter {
 	}
 
 	@Override
-	public void hitBack() {
+	public void surrender() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void surrender() {
+	public int getPower(IWeapon weapon) {
+		// TODO Auto-generated method stub
+		return this.power;
+	}
+
+	@Override
+	public void nurse(IHealing healingCapacity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroyWeapon(IWeapon weapon) {
+		destroy = true;
+		
+	}
+
+	@Override
+	public void hitBack(IAttack defenderWeapon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hitBack(IParade defenderWeapon) {
 		// TODO Auto-generated method stub
 		
 	}

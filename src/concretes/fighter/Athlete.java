@@ -1,5 +1,7 @@
 package concretes.fighter;
 
+import java.util.List;
+
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.AthleteIllegalSkillPoints;
 
@@ -7,8 +9,9 @@ public class Athlete extends Fighter {
 
 	public static final int ATHLETE_DELTA_SKILLS = 20;
 
-	public Athlete(String name, int strength, int dexterity, int intelligence, int concentration, IWeapon weapon) {
-		super(name, strength, dexterity, intelligence, concentration, weapon);
+	public Athlete(String name, int strength, int dexterity, int intelligence, int concentration,
+			List<IWeapon> capacityList) {
+		super(name, strength, dexterity, intelligence, concentration, capacityList);
 		validateAthleteSkills(strength, dexterity, intelligence, concentration);
 	}
 

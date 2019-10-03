@@ -1,10 +1,11 @@
 package mocks;
 
 import abstracts.fighter.IFighter;
-import abstracts.weapon.IAttack;
+import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
+import concretes.fighter.WarriorTest;
 
-public class WeaponDummy implements IWeapon, IAttack {
+public class ShieldStub implements IWeapon, IParade {
 
 	@Override
 	public int getPower() {
@@ -15,7 +16,7 @@ public class WeaponDummy implements IWeapon, IAttack {
 	@Override
 	public int getCapacityPower(IFighter fighter) {
 		// TODO Auto-generated method stub
-		return 0;
+		return WarriorTest.WARRIOR_STRENGTH;
 	}
 
 }

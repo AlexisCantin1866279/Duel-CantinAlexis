@@ -5,6 +5,7 @@ import abstracts.fighter.IFighter;
 import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
+import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.infirmary.Infirmary;
 
@@ -92,26 +93,6 @@ public class FighterSpy implements IFighter {
 	}
 
 	@Override
-	public int getPower() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void nurse() {
-		IInfirmary infirmary = new Infirmary();
-		IWeapon healingSpellStub = new HealingSpellStub();
-		infirmary.nurse(this, (IHealing) healingSpellStub);
-		
-	}
-
-	@Override
-	public void destroyWeapon() {
-		destroyWeaponHasBeenCalled = true;
-		
-	}
-
-	@Override
 	public void provoke(IFighter defender, IAttack attackerWeapon) {
 		// TODO Auto-generated method stub
 		
@@ -124,13 +105,39 @@ public class FighterSpy implements IFighter {
 	}
 
 	@Override
-	public void hitBack() {
+	public void surrender() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void surrender() {
+	public int getPower(IWeapon weapon) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void nurse(IHealing healingCapacity) {
+		IInfirmary infirmary = new Infirmary();
+		IWeapon healingSpellStub = new HealingSpellStub();
+		infirmary.nurse(this, (IHealing) healingSpellStub);
+		
+	}
+
+	@Override
+	public void destroyWeapon(IWeapon weapon) {
+		destroyWeaponHasBeenCalled = true;
+		
+	}
+
+	@Override
+	public void hitBack(IAttack defenderWeapon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hitBack(IParade defenderWeapon) {
 		// TODO Auto-generated method stub
 		
 	}

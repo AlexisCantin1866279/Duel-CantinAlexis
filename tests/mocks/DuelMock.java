@@ -3,6 +3,7 @@ package mocks;
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IAttack;
+import abstracts.weapon.IWeapon;
 
 public class DuelMock implements IDuel {
 	
@@ -28,9 +29,9 @@ public class DuelMock implements IDuel {
 	}
 
 	@Override
-	public void fight() {
-		int attackerPower = this.attacker.getPower(); //avec arme attaque
-		int defenderPower = this.defender.getPower(); //avec arme defense ou attaque
+	public void fight(IWeapon defenderWeapon) {
+		int attackerPower = this.attacker.getPower(attackerWeapon);
+		int defenderPower = this.defender.getPower(defenderWeapon);
 		int lostLife;
 
 		if (attackerPower >= defenderPower) {
@@ -63,7 +64,7 @@ public class DuelMock implements IDuel {
 		winner.setIntelligence(winner.getIntelligence() + 1);
 		winner.setConcentration(winner.getConcentration() + 1);
 		
-		this.defender.challenge(null); //enleve le defi
+		this.defender.challenge(null);
 	}
 	
 	public void setWinner(IFighter winner) {
