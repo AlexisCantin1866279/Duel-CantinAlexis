@@ -5,6 +5,12 @@ import java.util.List;
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.WarriorIllegalSkillPoints;
 
+/**
+ * Classe permettant d'implementer un combattant guerrier
+ * 
+ * @author Alexis Cantin
+ * @version Octobre 2019
+ */
 public class Warrior extends Fighter {
 
 	public static final int WARRIOR_DELTA_SKILLS = 10;

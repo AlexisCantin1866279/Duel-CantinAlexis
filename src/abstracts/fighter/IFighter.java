@@ -43,8 +43,18 @@ public interface IFighter {
 	void challenge(IDuel duelChallenger);
 
 	void hitBack(IAttack defenderWeapon);
-	
+
 	void hitBack(IParade defenderWeapon);
 
 	void surrender();
+
+	void addWeapon(IWeapon weapon);
+
+	void increaseWeaponLimit();
+
+	IAttack getAttackWeapon();
+
+	IParade getParadeWeapon();
+
+	IHealing getHealingWeapon();
 }

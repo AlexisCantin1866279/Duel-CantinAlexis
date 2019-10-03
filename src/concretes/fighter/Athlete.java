@@ -5,6 +5,12 @@ import java.util.List;
 import abstracts.weapon.IWeapon;
 import exceptions.fighter.AthleteIllegalSkillPoints;
 
+/**
+ * Classe permettant d'implementer un combattant athlete
+ * 
+ * @author Alexis Cantin
+ * @version Octobre 2019
+ */
 public class Athlete extends Fighter {
 
 	public static final int ATHLETE_DELTA_SKILLS = 20;

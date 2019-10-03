@@ -12,13 +12,26 @@ import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
 import concretes.infirmary.Infirmary;
+import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
 import exceptions.fighter.IllegalSkillPoints;
+import exceptions.fighter.NoAttackWeaponException;
+import exceptions.fighter.NoHealingWeaponException;
+import exceptions.fighter.NoParadeWeaponException;
+import exceptions.fighter.ToManyWeaponException;
 
+/**
+ * Classe abstraite qui guide la creation d'un combattant
+ * 
+ * @author Alexis Cantin
+ * @version Octobre 2019
+ *
+ */
 public abstract class Fighter implements IFighter {
 
 	public static final int MAX_SKILLS = 100;
 	public static final int BASE_HP = 200;
+	public static final int MIN_CAPACITIES = 2;
 
 	private final int INITIAL_HP;
 
@@ -28,6 +41,7 @@ public abstract class Fighter implements IFighter {
 	private int intelligence;
 	private int concentration;
 	private int lifePoint;
+	private int numberMaxOfWeapons;
 
 	private List<IWeapon> capacityList;
 	private IInfirmary infirmary;
@@ -59,6 +73,7 @@ public abstract class Fighter implements IFighter {
 		INITIAL_HP = this.lifePoint;
 
 		this.capacityList = new ArrayList<IWeapon>(capacityList);
+		numberMaxOfWeapons = this.capacityList.size();
 
 		this.infirmary = new Infirmary();
 		this.duel = new Duel(this);
@@ -70,7 +85,7 @@ public abstract class Fighter implements IFighter {
 	}
 
 	private void validateCapacity(List<IWeapon> capacityList) {
-		if (capacityList.size() < 2)
+		if (capacityList.size() < MIN_CAPACITIES)
 			throw new IllegalNumberCapacitiesStart();
 	}
 
@@ -135,6 +150,7 @@ public abstract class Fighter implements IFighter {
 	public void destroyWeapon(IWeapon weapon) {
 
 		this.capacityList.remove(weapon);
+		this.numberMaxOfWeapons--;
 	}
 
 	/**
@@ -162,13 +178,17 @@ public abstract class Fighter implements IFighter {
 	 * Permet d'accepter le duel, sinon lance exception
 	 */
 	public void hitBack(IAttack defenderWeapon) {
+		if (this.challengerDuel == null)
+			throw new IllegalFightException();
 		this.challengerDuel.fight(defenderWeapon);
 	}
-	
+
 	/**
 	 * Permet d'accepter le duel, sinon lance exception
 	 */
 	public void hitBack(IParade defenderWeapon) {
+		if (this.challengerDuel == null)
+			throw new IllegalFightException();
 		this.challengerDuel.fight(defenderWeapon);
 	}
 
@@ -177,7 +197,45 @@ public abstract class Fighter implements IFighter {
 	 * lance exception
 	 */
 	public void surrender() {
+		if (this.challengerDuel == null)
+			throw new IllegalFightException();
 		this.challengerDuel.surrender();
+	}
+	
+	public void addWeapon(IWeapon weapon) {
+		if (this.numberMaxOfWeapons <= this.capacityList.size()) throw new ToManyWeaponException();
+		this.capacityList.add(weapon);
+	}
+	
+	public void increaseWeaponLimit() {
+		this.numberMaxOfWeapons++;
+	}
+	
+	public IAttack getAttackWeapon() {
+		for (int i = 0; i < this.capacityList.size(); i++) {
+			if (this.capacityList.get(i) instanceof IAttack) {
+				return (IAttack) this.capacityList.get(i);
+			}
+		}
+		throw new NoAttackWeaponException();
+	}
+	
+	public IParade getParadeWeapon() {
+		for (int i = 0; i < this.capacityList.size(); i++) {
+			if (this.capacityList.get(i) instanceof IParade) {
+				return (IParade) this.capacityList.get(i);
+			}
+		}
+		throw new NoParadeWeaponException();
+	}
+	
+	public IHealing getHealingWeapon() {
+		for (int i = 0; i < this.capacityList.size(); i++) {
+			if (this.capacityList.get(i) instanceof IHealing) {
+				return (IHealing) this.capacityList.get(i);
+			}
+		}
+		throw new NoHealingWeaponException();
 	}
 
 }

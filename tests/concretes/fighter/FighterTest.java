@@ -14,8 +14,13 @@ import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
+import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
 import exceptions.fighter.IllegalSkillPoints;
+import exceptions.fighter.NoAttackWeaponException;
+import exceptions.fighter.NoHealingWeaponException;
+import exceptions.fighter.NoParadeWeaponException;
+import exceptions.fighter.ToManyWeaponException;
 import mocks.FighterSpy;
 import mocks.FireBallStub;
 import mocks.HealingSpellStub;
@@ -44,6 +49,7 @@ public class FighterTest {
 	private IWeapon fireBallStub;
 	private IWeapon healingSpellStub;
 	private IWeapon swordStub;
+	private IWeapon shieldStub;
 
 	@Before
 	public void initilizeFighter() {
@@ -53,6 +59,7 @@ public class FighterTest {
 		healingSpellStub = new HealingSpellStub();
 		swordStub = new SwordStub();
 		fighterSpy = new FighterSpy();
+		shieldStub = new ShieldStub();
 
 		capacitiesListDummy = new ArrayList<IWeapon>();
 		capacitiesListDummy.add(weaponDummy);
@@ -60,15 +67,15 @@ public class FighterTest {
 
 		capacitiesListMagicWarrior = new ArrayList<IWeapon>();
 		capacitiesListMagicWarrior.add(fireBallStub);
-		capacitiesListMagicWarrior.add(weaponDummy);
+		capacitiesListMagicWarrior.add(swordStub);
 
 		capacitiesListHealingWizard = new ArrayList<IWeapon>();
 		capacitiesListHealingWizard.add(healingSpellStub);
-		capacitiesListHealingWizard.add(weaponDummy);
+		capacitiesListHealingWizard.add(shieldStub);
 
 		capacitiesListFightingAthlete = new ArrayList<IWeapon>();
 		capacitiesListFightingAthlete.add(swordStub);
-		capacitiesListFightingAthlete.add(weaponDummy);
+		capacitiesListFightingAthlete.add(shieldStub);
 
 		warrior = new Warrior(ANY_NAME, WarriorTest.WARRIOR_STRENGTH, WarriorTest.WARRIOR_DEXTERITY,
 				WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, capacitiesListDummy);
@@ -84,6 +91,7 @@ public class FighterTest {
 				AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION, capacitiesListFightingAthlete);
 	}
 
+	// test d'initialisation d'un combattant
 	@Test
 	public void WHEN_FighterIsCreated_THEN_HisStrengthIsInitialize() {
 		int strength = warrior.getStrength();
@@ -113,7 +121,7 @@ public class FighterTest {
 	}
 
 	@Test
-	public void WHEN_FighterIsCreated_THEN_HisConcentrationhIsInitialize() {
+	public void WHEN_FighterIsCreated_THEN_HisConcentrationIsInitialize() {
 		int concentration = athlete.getConcentration();
 
 		assertEquals(AthleteTest.ATHLETE_CONCENTRATION, concentration);
@@ -165,6 +173,7 @@ public class FighterTest {
 				WarriorTest.WARRIOR_INTELLIGENCE, WarriorTest.WARRIOR_CONCENTRATION, illegalList);
 	}
 
+	// test de la methode power
 	@Test
 	public void GIVEN_warrior_fireBall_WHEN_warriorAttackWithHisWeapon_THEN_TheCapacityValueIsReturned() {
 
@@ -173,6 +182,7 @@ public class FighterTest {
 		assertEquals(WizardTest.WIZARD_INTELLIGENCE * Wizard.WIZARD_DELTA_SILLS, attackValue);
 	}
 
+	// test de la capacite au combattant de se soigner
 	@Test
 	public void WHEN_FighterHaveHealingCapacity_THEN_HeCanGoToTheInfirmary() {
 
@@ -192,6 +202,7 @@ public class FighterTest {
 		assertEquals(true, fighterSpy.destroyWeaponHasBeenCalled);
 	}
 
+	// test de la capacite a un combattant de faire un duel et de gagner
 	@Test
 	public void WHEN_FighterWinFight_THEN_HisStrengthIncrease() {
 
@@ -301,6 +312,7 @@ public class FighterTest {
 		assertEquals(EXPECTED, fightingAthlete.getConcentration());
 	}
 
+	// test de la capacite a un combattant de faire un duel et de gagner
 	@Test
 	public void WHEN_FighterLoseFight_THEN_HisOpposantStrengthIncrease() {
 
@@ -410,6 +422,7 @@ public class FighterTest {
 		assertEquals(EXPECTED, fightingAthlete.getConcentration());
 	}
 
+	// test de la capacite a un combattant d'abandonner un duel
 	@Test
 	public void WHEN_DefenderSurrender_THEN_HisChallengerStrengthIncrease() {
 
@@ -529,6 +542,89 @@ public class FighterTest {
 
 		final int EXPECTED = initialConcentration - Duel.REWARD_DELTA;
 		assertEquals(EXPECTED, fightingAthlete.getConcentration());
+	}
+
+	// robusttesse de combattant qui se bat tout seul
+	@Test(expected = IllegalFightException.class)
+	public void WHEN_FighterWantToHitBackWithAttackWeaponButHeDoesntChallenged() {
+
+		fightingAthlete.hitBack((IAttack) capacitiesListFightingAthlete.get(0));
+	}
+
+	@Test(expected = IllegalFightException.class)
+	public void WHEN_FighterWantToHitBackWithParadeWeaponButHeDoesntChallenged() {
+
+		IWeapon shieldStub = new ShieldStub();
+		capacitiesListFightingAthlete.add(shieldStub);
+
+		fightingAthlete.hitBack((IParade) capacitiesListFightingAthlete.get(2));
+	}
+
+	@Test(expected = IllegalFightException.class)
+	public void WHEN_FighterWantToSurrenderButHeDoesntChallenged() {
+
+		fightingAthlete.surrender();
+	}
+
+	// test de la methode addWeapon
+	@Test(expected = ToManyWeaponException.class)
+	public void WHEN_FighterWantToAddWeaponButHeDoesntHaveWinADuel() {
+
+		warrior.addWeapon(weaponDummy);
+	}
+	
+	@Test
+	public void WHEN_FighterWantToAddWeapon_THEN_TheWeaponIsAdded() {
+
+		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
+		fightingAthlete.hitBack((IAttack) swordStub);
+		
+		magicWarrior.addWeapon(healingSpellStub);
+		IWeapon weapon = magicWarrior.getHealingWeapon();
+		
+		assertEquals(healingSpellStub, weapon);
+	}
+	
+	// test des gets type Weapon
+	@Test
+	public void WHEN_FighterIsAskAnAttackWeapon_THEN_HeReturnTheGoodWeapon() {
+		IAttack weapon = magicWarrior.getAttackWeapon();
+		
+		assertEquals(capacitiesListMagicWarrior.get(0), weapon);
+	}
+	
+	@Test (expected = NoAttackWeaponException.class)
+	public void WHEN_FighterIsAskAnAttackWeapon() {
+		@SuppressWarnings("unused")
+		IAttack weapon = healingWizard.getAttackWeapon();
+	}
+	
+	@Test
+	public void WHEN_FighterIsAskAnParadeWeapon_THEN_HeReturnTheGoodWeapon() {
+		
+		IParade weapon = fightingAthlete.getParadeWeapon();
+		
+		assertEquals(capacitiesListFightingAthlete.get(1), weapon);
+	}
+	
+	@Test (expected = NoParadeWeaponException.class)
+	public void WHEN_FighterIsAskAnParadeWeapon() {
+		@SuppressWarnings("unused")
+		IParade weapon = magicWarrior.getParadeWeapon();
+	}
+	
+	@Test
+	public void WHEN_FighterIsAskAnHealingWeapon_THEN_HeReturnTheGoodWeapon() {
+		
+		IHealing weapon = healingWizard.getHealingWeapon();
+		
+		assertEquals(capacitiesListHealingWizard.get(0), weapon);
+	}
+	
+	@Test (expected = NoHealingWeaponException.class)
+	public void WHEN_FighterIsAskAnHealingWeapon() {
+		@SuppressWarnings("unused")
+		IHealing weapon = magicWarrior.getHealingWeapon();
 	}
 
 }
