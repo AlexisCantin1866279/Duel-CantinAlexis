@@ -14,12 +14,10 @@ import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
+import exceptions.fighter.CapacityExistenceException;
 import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
 import exceptions.fighter.IllegalSkillPoints;
-import exceptions.fighter.NoAttackWeaponException;
-import exceptions.fighter.NoHealingWeaponException;
-import exceptions.fighter.NoParadeWeaponException;
 import exceptions.fighter.ToManyWeaponException;
 import mocks.FighterSpy;
 import mocks.FireBallStub;
@@ -534,11 +532,9 @@ public class FighterTest {
 	public void WHEN_DefenderHaveShield_THEN_HeCanDefendHimself() {
 
 		int initialConcentration = fightingAthlete.getConcentration();
-		IWeapon shieldStub = new ShieldStub();
-		capacitiesListFightingAthlete.add(shieldStub);
 
 		magicWarrior.provoke(fightingAthlete, (IAttack) fireBallStub);
-		fightingAthlete.hitBack((IParade) capacitiesListFightingAthlete.get(2));
+		fightingAthlete.hitBack((IParade) capacitiesListFightingAthlete.get(1));
 
 		final int EXPECTED = initialConcentration - Duel.REWARD_DELTA;
 		assertEquals(EXPECTED, fightingAthlete.getConcentration());
@@ -565,6 +561,33 @@ public class FighterTest {
 
 		fightingAthlete.surrender();
 	}
+	
+	// test de la validiter de l'arme
+	@Test(expected = CapacityExistenceException.class)
+	public void WHEN_FighterWantToUseAnOtherWeaponToProvoke() {
+
+		warrior.provoke(athlete, (IAttack) fireBallStub);
+	}
+	
+	@Test(expected = CapacityExistenceException.class)
+	public void WHEN_FighterWantToUseAnOtherWeaponToHeal() {
+
+		warrior.nurse((IHealing) healingSpellStub);
+	}
+	
+	@Test(expected = CapacityExistenceException.class)
+	public void WHEN_FighterWantToUseAnOtherAttackWeaponToHitBack() {
+
+		magicWarrior.provoke(warrior, (IAttack) fireBallStub);
+		warrior.hitBack((IAttack) fireBallStub);
+	}
+	
+	@Test(expected = CapacityExistenceException.class)
+	public void WHEN_FighterWantToUseAnOtherParadeWeaponToHitBack() {
+
+		magicWarrior.provoke(warrior, (IAttack) fireBallStub);
+		warrior.hitBack((IParade) shieldStub);
+	}
 
 	// test de la methode addWeapon
 	@Test(expected = ToManyWeaponException.class)
@@ -580,51 +603,10 @@ public class FighterTest {
 		fightingAthlete.hitBack((IAttack) swordStub);
 		
 		magicWarrior.addWeapon(healingSpellStub);
-		IWeapon weapon = magicWarrior.getHealingWeapon();
+		magicWarrior.nurse((IHealing) healingSpellStub);
 		
-		assertEquals(healingSpellStub, weapon);
-	}
-	
-	// test des gets type Weapon
-	@Test
-	public void WHEN_FighterIsAskAnAttackWeapon_THEN_HeReturnTheGoodWeapon() {
-		IAttack weapon = magicWarrior.getAttackWeapon();
-		
-		assertEquals(capacitiesListMagicWarrior.get(0), weapon);
-	}
-	
-	@Test (expected = NoAttackWeaponException.class)
-	public void WHEN_FighterIsAskAnAttackWeapon() {
-		@SuppressWarnings("unused")
-		IAttack weapon = healingWizard.getAttackWeapon();
-	}
-	
-	@Test
-	public void WHEN_FighterIsAskAnParadeWeapon_THEN_HeReturnTheGoodWeapon() {
-		
-		IParade weapon = fightingAthlete.getParadeWeapon();
-		
-		assertEquals(capacitiesListFightingAthlete.get(1), weapon);
-	}
-	
-	@Test (expected = NoParadeWeaponException.class)
-	public void WHEN_FighterIsAskAnParadeWeapon() {
-		@SuppressWarnings("unused")
-		IParade weapon = magicWarrior.getParadeWeapon();
-	}
-	
-	@Test
-	public void WHEN_FighterIsAskAnHealingWeapon_THEN_HeReturnTheGoodWeapon() {
-		
-		IHealing weapon = healingWizard.getHealingWeapon();
-		
-		assertEquals(capacitiesListHealingWizard.get(0), weapon);
-	}
-	
-	@Test (expected = NoHealingWeaponException.class)
-	public void WHEN_FighterIsAskAnHealingWeapon() {
-		@SuppressWarnings("unused")
-		IHealing weapon = magicWarrior.getHealingWeapon();
+		// si l'arme n'a pas ete ajouter, une exception aurait ete lance
+		assertTrue(true);
 	}
 
 }

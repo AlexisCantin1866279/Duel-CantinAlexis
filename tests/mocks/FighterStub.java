@@ -151,22 +151,4 @@ public class FighterStub implements IFighter {
 
 	}
 
-	@Override
-	public IAttack getAttackWeapon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IParade getParadeWeapon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public IHealing getHealingWeapon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

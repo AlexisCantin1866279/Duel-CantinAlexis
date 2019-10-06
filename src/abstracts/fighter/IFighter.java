@@ -51,10 +51,4 @@ public interface IFighter {
 	void addWeapon(IWeapon weapon);
 
 	void increaseWeaponLimit();
-
-	IAttack getAttackWeapon();
-
-	IParade getParadeWeapon();
-
-	IHealing getHealingWeapon();
 }

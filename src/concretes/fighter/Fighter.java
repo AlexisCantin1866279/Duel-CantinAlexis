@@ -12,12 +12,10 @@ import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
 import concretes.infirmary.Infirmary;
+import exceptions.fighter.CapacityExistenceException;
 import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
 import exceptions.fighter.IllegalSkillPoints;
-import exceptions.fighter.NoAttackWeaponException;
-import exceptions.fighter.NoHealingWeaponException;
-import exceptions.fighter.NoParadeWeaponException;
 import exceptions.fighter.ToManyWeaponException;
 
 /**
@@ -157,6 +155,8 @@ public abstract class Fighter implements IFighter {
 	 * Permet de se soigner, si le combattant possede une capacite de soin
 	 */
 	public void nurse(IHealing healingCapacity) {
+		if (!weaponExist(healingCapacity))
+			throw new CapacityExistenceException();
 		this.infirmary.nurse(this, healingCapacity);
 	}
 
@@ -164,6 +164,8 @@ public abstract class Fighter implements IFighter {
 	 * methode qui provoque un autre combattant en duel
 	 */
 	public void provoke(IFighter defender, IAttack attackerWeapon) {
+		if (!weaponExist(attackerWeapon))
+			throw new CapacityExistenceException();
 		this.duel.provoke(defender, attackerWeapon);
 	}
 
@@ -180,6 +182,8 @@ public abstract class Fighter implements IFighter {
 	public void hitBack(IAttack defenderWeapon) {
 		if (this.challengerDuel == null)
 			throw new IllegalFightException();
+		if (!weaponExist(defenderWeapon))
+			throw new CapacityExistenceException();
 		this.challengerDuel.fight(defenderWeapon);
 	}
 
@@ -189,6 +193,8 @@ public abstract class Fighter implements IFighter {
 	public void hitBack(IParade defenderWeapon) {
 		if (this.challengerDuel == null)
 			throw new IllegalFightException();
+		if (!weaponExist(defenderWeapon))
+			throw new CapacityExistenceException();
 		this.challengerDuel.fight(defenderWeapon);
 	}
 
@@ -201,41 +207,24 @@ public abstract class Fighter implements IFighter {
 			throw new IllegalFightException();
 		this.challengerDuel.surrender();
 	}
-	
+
 	public void addWeapon(IWeapon weapon) {
-		if (this.numberMaxOfWeapons <= this.capacityList.size()) throw new ToManyWeaponException();
+		if (this.numberMaxOfWeapons <= this.capacityList.size())
+			throw new ToManyWeaponException();
 		this.capacityList.add(weapon);
 	}
-	
+
 	public void increaseWeaponLimit() {
 		this.numberMaxOfWeapons++;
 	}
-	
-	public IAttack getAttackWeapon() {
+
+	private boolean weaponExist(IWeapon weapon) {
 		for (int i = 0; i < this.capacityList.size(); i++) {
-			if (this.capacityList.get(i) instanceof IAttack) {
-				return (IAttack) this.capacityList.get(i);
+			if (this.capacityList.get(i).equals(weapon)) {
+				return true;
 			}
 		}
-		throw new NoAttackWeaponException();
-	}
-	
-	public IParade getParadeWeapon() {
-		for (int i = 0; i < this.capacityList.size(); i++) {
-			if (this.capacityList.get(i) instanceof IParade) {
-				return (IParade) this.capacityList.get(i);
-			}
-		}
-		throw new NoParadeWeaponException();
-	}
-	
-	public IHealing getHealingWeapon() {
-		for (int i = 0; i < this.capacityList.size(); i++) {
-			if (this.capacityList.get(i) instanceof IHealing) {
-				return (IHealing) this.capacityList.get(i);
-			}
-		}
-		throw new NoHealingWeaponException();
+		return false;
 	}
 
 }
