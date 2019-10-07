@@ -1,6 +1,6 @@
 package exceptions.fighter;
 
 @SuppressWarnings("serial")
-public class CapacityExistenceException extends RuntimeException {
+public class CapacityExistenceException extends IllegalArgumentException {
 
 }

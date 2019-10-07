@@ -5,6 +5,12 @@ import abstracts.weapon.IAttack;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 
+/**
+ * interface des Combattants
+ * 
+ * @author Alexis Cantin
+ * @version Octobre 2019
+ */
 public interface IFighter {
 
 	String getName();

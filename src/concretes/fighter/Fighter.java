@@ -190,7 +190,10 @@ public abstract class Fighter implements IFighter {
 			throw new IllegalFightException();
 		this.challengerDuel.surrender();
 	}
-
+	
+	/**
+	 * ajout une arme s'il a deja gagner un combat
+	 */
 	public void addWeapon(IWeapon weapon) {
 		if (this.numberMaxOfWeapons <= this.capacityList.size())
 			throw new ToManyWeaponException();

@@ -3,6 +3,12 @@ package concretes.strategy;
 import abstracts.fighter.IFighter;
 import concretes.weapon.Weapon;
 
+/**
+ * Patron de strategie pour calculer la puissance d'une capacite physique
+ * 
+ * @author Alexis Cantin
+ * @version Octobre 2019
+ */
 public abstract class PhysicalCapacity extends Weapon {
 
 	public PhysicalCapacity(int power) {
@@ -11,7 +17,7 @@ public abstract class PhysicalCapacity extends Weapon {
 
 	@Override
 	public int getCapacityPower(IFighter fighter) {
-		return fighter.getStrength() * this.getPower() / 100;
+		return fighter.getStrength() * this.getPower() / DIVISOR_CAPACITY;
 	}
 
 }
