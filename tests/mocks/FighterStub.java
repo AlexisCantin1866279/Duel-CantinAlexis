@@ -3,7 +3,6 @@ package mocks;
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
 import abstracts.weapon.IAttack;
-import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
@@ -116,12 +115,6 @@ public class FighterStub implements IFighter {
 	}
 
 	@Override
-	public void nurse(IHealing healingCapacity) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void destroyWeapon(IWeapon weapon) {
 		destroy = true;
 
@@ -149,6 +142,12 @@ public class FighterStub implements IFighter {
 	public void increaseWeaponLimit() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void haveWeapon(IWeapon weapon) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -2,7 +2,6 @@ package abstracts.fighter;
 
 import abstracts.duel.IDuel;
 import abstracts.weapon.IAttack;
-import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 
@@ -34,8 +33,6 @@ public interface IFighter {
 
 	int getPower(IWeapon weapon);
 
-	void nurse(IHealing healingCapacity);
-
 	void destroyWeapon(IWeapon weapon);
 
 	void provoke(IFighter defender, IAttack attackerWeapon);
@@ -51,4 +48,6 @@ public interface IFighter {
 	void addWeapon(IWeapon weapon);
 
 	void increaseWeaponLimit();
+
+	void haveWeapon(IWeapon weapon);
 }

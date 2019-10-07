@@ -5,13 +5,10 @@ import java.util.List;
 
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
-import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
-import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
-import concretes.infirmary.Infirmary;
 import exceptions.fighter.CapacityExistenceException;
 import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
@@ -42,7 +39,6 @@ public abstract class Fighter implements IFighter {
 	private int numberMaxOfWeapons;
 
 	private List<IWeapon> capacityList;
-	private IInfirmary infirmary;
 	private IDuel duel;
 	private IDuel challengerDuel = null;
 
@@ -73,7 +69,6 @@ public abstract class Fighter implements IFighter {
 		this.capacityList = new ArrayList<IWeapon>(capacityList);
 		numberMaxOfWeapons = this.capacityList.size();
 
-		this.infirmary = new Infirmary();
 		this.duel = new Duel(this);
 	}
 
@@ -152,20 +147,10 @@ public abstract class Fighter implements IFighter {
 	}
 
 	/**
-	 * Permet de se soigner, si le combattant possede une capacite de soin
-	 */
-	public void nurse(IHealing healingCapacity) {
-		if (!weaponExist(healingCapacity))
-			throw new CapacityExistenceException();
-		this.infirmary.nurse(this, healingCapacity);
-	}
-
-	/**
 	 * methode qui provoque un autre combattant en duel
 	 */
 	public void provoke(IFighter defender, IAttack attackerWeapon) {
-		if (!weaponExist(attackerWeapon))
-			throw new CapacityExistenceException();
+		haveWeapon(attackerWeapon);
 		this.duel.provoke(defender, attackerWeapon);
 	}
 
@@ -182,8 +167,7 @@ public abstract class Fighter implements IFighter {
 	public void hitBack(IAttack defenderWeapon) {
 		if (this.challengerDuel == null)
 			throw new IllegalFightException();
-		if (!weaponExist(defenderWeapon))
-			throw new CapacityExistenceException();
+		haveWeapon(defenderWeapon);
 		this.challengerDuel.fight(defenderWeapon);
 	}
 
@@ -193,8 +177,7 @@ public abstract class Fighter implements IFighter {
 	public void hitBack(IParade defenderWeapon) {
 		if (this.challengerDuel == null)
 			throw new IllegalFightException();
-		if (!weaponExist(defenderWeapon))
-			throw new CapacityExistenceException();
+		haveWeapon(defenderWeapon);
 		this.challengerDuel.fight(defenderWeapon);
 	}
 
@@ -218,13 +201,9 @@ public abstract class Fighter implements IFighter {
 		this.numberMaxOfWeapons++;
 	}
 
-	private boolean weaponExist(IWeapon weapon) {
-		for (int i = 0; i < this.capacityList.size(); i++) {
-			if (this.capacityList.get(i).equals(weapon)) {
-				return true;
-			}
-		}
-		return false;
+	public void haveWeapon(IWeapon weapon) {
+		if (!this.capacityList.contains(weapon))
+			throw new CapacityExistenceException();
 	}
 
 }

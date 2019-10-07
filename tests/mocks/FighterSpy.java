@@ -2,12 +2,9 @@ package mocks;
 
 import abstracts.duel.IDuel;
 import abstracts.fighter.IFighter;
-import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
-import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
-import concretes.infirmary.Infirmary;
 
 public class FighterSpy implements IFighter {
 
@@ -117,14 +114,6 @@ public class FighterSpy implements IFighter {
 	}
 
 	@Override
-	public void nurse(IHealing healingCapacity) {
-		IInfirmary infirmary = new Infirmary();
-		IWeapon healingSpellStub = new HealingSpellStub();
-		infirmary.nurse(this, (IHealing) healingSpellStub);
-
-	}
-
-	@Override
 	public void destroyWeapon(IWeapon weapon) {
 		destroyWeaponHasBeenCalled = true;
 
@@ -152,6 +141,12 @@ public class FighterSpy implements IFighter {
 	public void increaseWeaponLimit() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void haveWeapon(IWeapon weapon) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

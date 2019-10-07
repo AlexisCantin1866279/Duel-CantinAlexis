@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import abstracts.fighter.IFighter;
+import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
@@ -11,6 +12,7 @@ import abstracts.weapon.IWeapon;
 import concretes.fighter.Athlete;
 import concretes.fighter.Warrior;
 import concretes.fighter.Wizard;
+import concretes.infirmary.Infirmary;
 import concretes.weapon.FireBall;
 import concretes.weapon.HealingPotion;
 import concretes.weapon.HealingSpell;
@@ -24,6 +26,8 @@ public class Simulator {
 
 	public static void main(String[] args) {
 
+		IInfirmary infirmary = new Infirmary();
+		
 		IAttack sword = new Sword(30);
 		IParade shield = new Shield(30);
 		IAttack fireBall = new FireBall(30);
@@ -69,7 +73,7 @@ public class Simulator {
 
 		// atlhete va a l'infirmerie
 		displayBeforeInfirmary(athlete);
-		athlete.nurse(healingPotion);
+		infirmary.nurse(athlete, healingPotion);
 		displayNursingInfirmary(athlete, healingPotion);
 		displayAfterInfirmary(athlete);
 
@@ -81,7 +85,7 @@ public class Simulator {
 
 		// wizard va a l'infirmerie
 		displayBeforeInfirmary(wizard);
-		wizard.nurse(healingSpell);
+		infirmary.nurse(wizard, healingSpell);
 		displayNursingInfirmary(wizard, healingSpell);
 		displayAfterInfirmary(wizard);
 
@@ -90,7 +94,7 @@ public class Simulator {
 
 		// warrior va a l'infirmerie
 		displayBeforeInfirmary(warrior);
-		warrior.nurse(healingSpell);
+		infirmary.nurse(warrior, healingSpell);
 		displayNursingInfirmary(warrior, healingSpell);
 		displayAfterInfirmary(warrior);
 
@@ -104,7 +108,7 @@ public class Simulator {
 
 		// L'athlete ne peut pas retourner a l'infirmerie
 		try {
-			athlete.nurse(healingPotion);
+			infirmary.nurse(athlete, healingPotion);
 		} catch (CapacityExistenceException e) {
 			System.out.println("l'athlete ne possede plus sa capacite de soin!");
 			System.out.println("------------------------------------\n");
@@ -112,7 +116,7 @@ public class Simulator {
 
 		// le fighter ne peut pas utiliser une arme qu'il ne possede pas
 		try {
-			athlete.nurse(healingSpell);
+			infirmary.nurse(athlete, healingSpell);
 		} catch (CapacityExistenceException e) {
 			System.out.println("l'athlete n'a jamais posseder cette arme!");
 			System.out.println("------------------------------------\n");

@@ -9,11 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import abstracts.fighter.IFighter;
+import abstracts.infirmary.IInfirmary;
 import abstracts.weapon.IAttack;
 import abstracts.weapon.IHealing;
 import abstracts.weapon.IParade;
 import abstracts.weapon.IWeapon;
 import concretes.duel.Duel;
+import concretes.infirmary.Infirmary;
 import exceptions.fighter.CapacityExistenceException;
 import exceptions.fighter.IllegalFightException;
 import exceptions.fighter.IllegalNumberCapacitiesStart;
@@ -38,6 +40,7 @@ public class FighterTest {
 	private IFighter fightingAthlete;
 
 	private FighterSpy fighterSpy;
+	private IInfirmary infirmary;
 
 	private List<IWeapon> capacitiesListDummy;
 	private List<IWeapon> capacitiesListMagicWarrior;
@@ -87,6 +90,8 @@ public class FighterTest {
 				WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, capacitiesListHealingWizard);
 		fightingAthlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY,
 				AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION, capacitiesListFightingAthlete);
+		
+		infirmary = new Infirmary();
 	}
 
 	// test d'initialisation d'un combattant
@@ -186,7 +191,7 @@ public class FighterTest {
 
 		int life = healingWizard.getInitialLifePoint() / 2;
 		healingWizard.setLifePoint(life);
-		healingWizard.nurse((IHealing) capacitiesListHealingWizard.get(0));
+		infirmary.nurse(healingWizard, (IHealing) capacitiesListHealingWizard.get(0));
 
 		final int EXPECTED = life + WizardTest.WIZARD_INTELLIGENCE;
 		assertEquals(EXPECTED, healingWizard.getLifePoint());
@@ -195,7 +200,7 @@ public class FighterTest {
 	@Test
 	public void WHEN_FighterHaveBeenToTheInfirmary_THEN_HisHealingCapacityIsDetroy() {
 
-		fighterSpy.nurse((IHealing) capacitiesListHealingWizard.get(0));
+		infirmary.nurse(fighterSpy, (IHealing) capacitiesListHealingWizard.get(0));
 
 		assertEquals(true, fighterSpy.destroyWeaponHasBeenCalled);
 	}
@@ -572,7 +577,7 @@ public class FighterTest {
 	@Test(expected = CapacityExistenceException.class)
 	public void WHEN_FighterWantToUseAnOtherWeaponToHeal() {
 
-		warrior.nurse((IHealing) healingSpellStub);
+		infirmary.nurse(warrior, (IHealing) healingSpellStub);
 	}
 	
 	@Test(expected = CapacityExistenceException.class)
@@ -603,7 +608,7 @@ public class FighterTest {
 		fightingAthlete.hitBack((IAttack) swordStub);
 		
 		magicWarrior.addWeapon(healingSpellStub);
-		magicWarrior.nurse((IHealing) healingSpellStub);
+		infirmary.nurse(magicWarrior, (IHealing) healingSpellStub);
 		
 		// si l'arme n'a pas ete ajouter, une exception aurait ete lance
 		assertTrue(true);
