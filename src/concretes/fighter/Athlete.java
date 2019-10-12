@@ -26,7 +26,7 @@ public class Athlete extends Fighter {
 		boolean exceptionMustBeThrown = false;
 
 		if (strength < ATHLETE_DELTA_SKILLS) {
-			exceptionMustBeThrown = true;
+			exceptionMustBeThrown = true;//MS Pourquoi ne pas faire le throw directement ici? L'exécution du code s'arrêtera.
 		} else if (dexterity < ATHLETE_DELTA_SKILLS) {
 			exceptionMustBeThrown = true;
 		} else if (intelligence < ATHLETE_DELTA_SKILLS) {

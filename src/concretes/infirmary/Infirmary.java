@@ -20,7 +20,7 @@ public class Infirmary implements IInfirmary {
 
 		int healValue = fighter.getPower(capacity);
 
-		if (healValue + fighter.getLifePoint() <= fighter.getInitialLifePoint()) {
+		if (healValue + fighter.getLifePoint() <= fighter.getInitialLifePoint()) {//MS Violation du tell don't ask, il ne faut pas faire le calcul à la place du fighter, il faut plutôt lui indiquer d'augmenter sa propriété de x points.
 			fighter.setLifePoint(healValue + fighter.getLifePoint());
 		} else {
 			fighter.setLifePoint(fighter.getInitialLifePoint());

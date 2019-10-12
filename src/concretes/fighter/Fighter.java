@@ -22,7 +22,7 @@ import exceptions.fighter.ToManyWeaponException;
  * @version Octobre 2019
  *
  */
-public abstract class Fighter implements IFighter {
+public abstract class Fighter implements IFighter {//MS Attention la classe est abstraite, mais elle se retrouve dans le package "concrete"...
 
 	public static final int MAX_SKILLS = 100;
 	public static final int BASE_HP = 200;
@@ -39,7 +39,7 @@ public abstract class Fighter implements IFighter {
 	private int numberMaxOfWeapons;
 
 	private List<IWeapon> capacityList;
-	private IDuel duel;
+	private IDuel duel; //MS le fighter ne devrait pas connaître l'existence d'un duel. C'est le duel qui utilise les fighters
 	private IDuel challengerDuel = null;
 
 	/**
@@ -78,7 +78,7 @@ public abstract class Fighter implements IFighter {
 	}
 
 	private void validateCapacity(List<IWeapon> capacityList) {
-		if (capacityList.size() < MIN_CAPACITIES)
+		if (capacityList.size() < MIN_CAPACITIES)//MS Il est spécifié à l'énoncé qu'on initialise le fighter à 2 capacités, mais il n'y a pas d'indication s'il peut en posséder plus ou moins.
 			throw new IllegalNumberCapacitiesStart();
 	}
 

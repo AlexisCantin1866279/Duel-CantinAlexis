@@ -15,7 +15,7 @@ public abstract class Weapon implements IWeapon {
 	public static final int MAX_POWER = 100;
 	public static final int DIVISOR_CAPACITY = 100;
 
-	protected int power;
+	protected int power;//MS Inutile de mettre la propritété protected puisqu'on a un getPower().
 
 	public Weapon(int power) {
 		validatePower(power);

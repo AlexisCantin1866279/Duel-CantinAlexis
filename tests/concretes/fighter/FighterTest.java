@@ -53,7 +53,7 @@ public class FighterTest {
 	private IWeapon shieldStub;
 
 	@Before
-	public void initilizeFighter() {
+	public void initilizeFighter() {//MS La classe Fighter ne doit pas connaître l'existence de ses enfants. La classe de tests n'est pas indépendante.
 
 		weaponDummy = new WeaponDummy();
 		fireBallStub = new FireBallStub();
@@ -61,7 +61,7 @@ public class FighterTest {
 		swordStub = new SwordStub();
 		fighterSpy = new FighterSpy();
 		shieldStub = new ShieldStub();
-
+//MS Il y a trop d'instanciations dans le @Before. On ne doit que créer les composants génériques qui seront utilisés à chaque tests. Les objets spécifiques doivent être créés dans chacun des tests.
 		capacitiesListDummy = new ArrayList<IWeapon>();
 		capacitiesListDummy.add(weaponDummy);
 		capacitiesListDummy.add(weaponDummy);
@@ -90,8 +90,8 @@ public class FighterTest {
 				WizardTest.WIZARD_INTELLIGENCE, WizardTest.WIZARD_CONCENTRATION, capacitiesListHealingWizard);
 		fightingAthlete = new Athlete(ANY_NAME, AthleteTest.ATHLETE_STRENGTH, AthleteTest.ATHLETE_DEXTERITY,
 				AthleteTest.ATHLETE_INTELLIGENCE, AthleteTest.ATHLETE_CONCENTRATION, capacitiesListFightingAthlete);
-		
-		infirmary = new Infirmary();
+		//MS Pour tester un fighter (abstrait) il faut utiliser un FighterMock et non les classes enfants.
+		infirmary = new Infirmary();//MS Il faut utiliser un InfirmaryMock.
 	}
 
 	// test d'initialisation d'un combattant

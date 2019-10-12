@@ -24,7 +24,7 @@ public class WeaponTest {
 	IFighter fighterStub;
 	
 	@Before
-	public void initialiseWeapon() {
+	public void initialiseWeapon() {//MS La classe Weapon ne doit pas connaître l'existence de ses enfants. La classe de tests n'est pas indépendante.
 		sword = new Sword(ANY_POWER);
 		shield = new Shield(ANY_POWER);
 		fireBall = new FireBall(ANY_POWER);
@@ -35,7 +35,7 @@ public class WeaponTest {
 	}
 
 	@Test
-	public void WHEN_PowerIsAskedOnWeapon_THEN_ThePowerOfItIsReturn() {
+	public void WHEN_PowerIsAskedOnWeapon_THEN_ThePowerOfItIsReturn() {//MS C'est la responsabilité des classe enfants de tester leur code spécifique.
 		int power = sword.getPower();
 		
 		assertEquals(ANY_POWER, power);

@@ -11,7 +11,7 @@ import concretes.strategy.MagicCapacity;
  */
 public class FireBall extends MagicCapacity implements IAttack {
 
-	public FireBall(int power) {
+	public FireBall(int power) {//MS D'où vient le FireBall? Dans l'énoncé, c'est DefensiveSpell et OffensiveSpell???
 		super(power);
 	}
 

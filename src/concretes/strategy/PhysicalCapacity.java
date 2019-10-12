@@ -16,7 +16,7 @@ public abstract class PhysicalCapacity extends Weapon {
 	}
 
 	@Override
-	public int getCapacityPower(IFighter fighter) {
+	public int getCapacityPower(IFighter fighter) {//MS Attention, on a regroupé Sword et Shield sous cette stratégie parce que le calcul se ressemblait, mais dans les faits, ce n'est pas la même capacité qui est utilisée. Qu'arrivera-t-il si on accepte qu'une capacité ait plus d'une caractéristique?
 		return fighter.getStrength() * this.getPower() / DIVISOR_CAPACITY;
 	}
 

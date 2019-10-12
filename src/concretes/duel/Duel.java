@@ -11,7 +11,7 @@ import abstracts.weapon.IWeapon;
  * @author Alexis Cantin
  * @version Octobre 2019
  */
-public class Duel implements IDuel {
+public class Duel implements IDuel {//MS C'est le duel qui est responsable de dicter les règles. Il doit utiliser le fighter mais le fighter ne doit pas connaître l'existence du duel. Si les règles du duel changent, est-ce qu'il y aura des impacts sur la classe Fighter?
 
 	public static final int REWARD_DELTA = 1;
 
@@ -19,7 +19,7 @@ public class Duel implements IDuel {
 	private IFighter defender;
 	private IAttack attackerWeapon;
 
-	public Duel(IFighter attacker) {
+	public Duel(IFighter attacker) {//MS à la création d'un duel, on doit lui donner un AttackFighter, un defenseFighter et la capacité d'attauqe à utiliser.
 		this.attacker = attacker;
 		this.defender = null;
 		this.attackerWeapon = null;
@@ -53,7 +53,7 @@ public class Duel implements IDuel {
 		fightConclusion(this.attacker, this.defender, 0);
 	}
 
-	private void fightConclusion(IFighter winner, IFighter looser, int lostLife) {
+	private void fightConclusion(IFighter winner, IFighter looser, int lostLife) {//MS Violation du tell don't ask, il ne faut pas faire le calcul à la place du fighter, il faut plutôt lui indiquer de réduire sa propriété de x points.
 		looser.setLifePoint(looser.getLifePoint() - lostLife);
 		looser.setStrength(looser.getStrength() - REWARD_DELTA);
 		looser.setDexterity(looser.getDexterity() - REWARD_DELTA);

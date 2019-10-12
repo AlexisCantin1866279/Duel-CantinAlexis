@@ -9,7 +9,7 @@ import concretes.weapon.Weapon;
  * @author Alexis Cantin
  * @version Octobre 2019
  */
-public abstract class HealCapacity extends Weapon {
+public abstract class HealCapacity extends Weapon {//MS Attention la classe est abstraite, mais elle se retrouve dans le package "concrete"...
 
 	public HealCapacity(int power) {
 		super(power);
